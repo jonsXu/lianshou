@@ -1,0 +1,1 @@
+export const nameGetter = state => state.demo.name

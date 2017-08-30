@@ -1,11 +1,22 @@
-import * as types from '../mutations/index.js'
-//
-const state={
-    name:"xuwen"
+import * as types from '../mutations/index'
+
+// initial state
+// shape: [{ id, quantity }]
+const state = {
+  name:'hehe'
 }
+
+
+// mutations
 const mutations = {
-    // 保存省数据
-    [types.GET_REGIONS] (state, data) {
-        state.stateList = data
-    }
-} 
+
+  [types.DEMO_NAME] (state, { name }) {
+    // rollback to the cart saved before sending the request
+    state.name = name
+  }
+}
+
+export default {
+  state,
+  mutations
+}
