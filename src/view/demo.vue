@@ -1,7 +1,17 @@
 <template>
-  <div class="hello">
-    你们说这样真的不好？{{test}}
-  </div>
+    <div class="hello" @click="hehe('sadsa')">
+      你们说这样真的不好？{{nameGetter}}
+    </div>
+
+
+
+
+
+
+
+
+
+
 </template>
 
 <script>
@@ -17,18 +27,21 @@ export default {
   },
   computed: {
       
-      ...mapGetters({
-        name:'nameGetter',
-      })
+      ...mapGetters([
+        'nameGetter',
+      ])
   },
   methods:{
-    // ...mapActions([
-    //     'setName' // 映射 this.increment() 为 this.$store.dispatch('increment')
-    //   ]),
+    ...mapActions([
+        'setName' // 映射 this.increment() 为 this.$store.dispatch('increment')
+    ]),
+    hehe(){
+      this.setName("gege")
+    }
   },
   mounted(){
-    // this.setName("wangwang")
-    this.test = this.name
+    //this.sets("wangwang")
+    
   }
 }
 </script>

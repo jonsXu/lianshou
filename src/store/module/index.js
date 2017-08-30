@@ -10,9 +10,9 @@ const state = {
 // mutations
 const mutations = {
 
-  [types.DEMO_NAME] (state, { name }) {
+  [types.DEMO_NAME] (state, data) {
     // rollback to the cart saved before sending the request
-    state.name = name
+    state.name = data
   }
 }
 

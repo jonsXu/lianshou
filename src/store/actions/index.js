@@ -8,5 +8,5 @@ export const setName = ({ commit }, name) => {
 //   export default {
 //     setName:({ commit }, name) => {
 //       commit(types.DEMO_NAME, name)
-//     }
+//     },
 // }
