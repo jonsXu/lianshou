@@ -2,10 +2,23 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" id="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <title>呵呵</title>
   </head>
   <body>
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
+  <script>
+   let html = document.documentElement;
+ 
+ window.rem = html.getBoundingClientRect().width / 16 ;
+ html.style.fontSize = window.rem + 'px';
+ </script>
+ <style>
+  body{
+    margin: 0;
+    padding: 0;
+  }
+ </style>
 </html>

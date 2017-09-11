@@ -7,6 +7,8 @@ import Vuex from 'vuex'
 import Router from 'vue-router'
 import store from './store'
 import 'src/assets/css/vali.less'
+import 'src/assets/css/common.less'
+import 'src/assets/css/iconfont.css'   // 引入字体样式
 
 
 Vue.use(Router)
