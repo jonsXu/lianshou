@@ -6,6 +6,7 @@ import routers from './router'
 import Vuex from 'vuex'
 import Router from 'vue-router'
 import store from './store'
+import 'src/assets/css/vali.less'
 
 
 Vue.use(Router)

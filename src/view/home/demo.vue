@@ -1,17 +1,8 @@
 <template>
     <div class="hello" @click="hehe('sadsa')">
-      你们说这样真的不好？{{nameGetter}}
+      你们说这sss样真的不好？{{nameGetter}}
+      <div class="test blue"></div>
     </div>
-
-
-
-
-
-
-
-
-
-
 </template>
 
 <script>
@@ -47,7 +38,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="less" scoped>
 h1, h2 {
   font-weight: normal;
 }
@@ -64,5 +55,11 @@ li {
 
 a {
   color: #42b983;
+}
+.hello{
+  .test{
+    width: 200px;
+    height:200px;
+  }
 }
 </style>
