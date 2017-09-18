@@ -11,40 +11,18 @@
             <li><a>add to cart</a></li>
           </ul>
       </div>
-      <div class="middle"></div>
+      <div class="middle">
+          <img src="~assets/images/1.png">
+          <img :src="imgUrl">
+      </div>
     </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-export default {
-  name: 'demo',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App',
-      test:''
-      
+import index from './index'
+    export default {
+        ...index
     }
-  },
-  computed: {
-      
-      ...mapGetters([
-        'nameGetter',
-      ])
-  },
-  methods:{
-    ...mapActions([
-        'setName' // 映射 this.increment() 为 this.$store.dispatch('increment')
-    ]),
-    hehe(){
-      this.setName("gege")
-    }
-  },
-  mounted(){
-    //this.sets("wangwang")
-    
-  }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -96,5 +74,8 @@ export default {
           
         }
       }
+    }
+    .middle{
+      padding: 0.7rem 0.5rem;
     }
 </style>
