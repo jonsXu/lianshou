@@ -77,5 +77,8 @@ import index from './index'
     }
     .middle{
       padding: 0.7rem 0.5rem;
+      img{
+        width: 100%;
+      }
     }
 </style>

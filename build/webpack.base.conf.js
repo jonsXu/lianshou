@@ -26,6 +26,7 @@ module.exports = {
       'src': resolve('src'),
       //'~': resolve(__dirname, 'src')
       "assets":resolve("src/assets"),
+      "static":resolve("static"),
     },
     symlinks: false
   },
