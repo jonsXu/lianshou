@@ -65,8 +65,8 @@ app.use(hotMiddleware)
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
 
-var uri = 'http://localhost:' + port
-//var uri = 'http://192.168.88.109:' + port   这个设置加上下面的server设置 可以设置内网ip访问
+// var uri = 'http://localhost:' + port
+var uri = 'http://192.168.0.8:' + port   //这个设置加上下面的server设置 可以设置内网ip访问
 var _resolve
 var readyPromise = new Promise(resolve => {
   _resolve = resolve
@@ -82,8 +82,8 @@ devMiddleware.waitUntilValid(() => {
   _resolve()
 })
 
-var server = app.listen(port, 'localhost')
-//var server = app.listen(port, '192.168.88.109')
+// var server = app.listen(port, 'localhost')
+var server = app.listen(port, '192.168.0.8')
 
 module.exports = {
   ready: readyPromise,

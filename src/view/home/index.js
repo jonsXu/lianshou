@@ -5,7 +5,7 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       test:'',
-      imgUrl:'../../../static/1.png',
+      imgUrl:'~static/1.png',
     }
   },
   computed: {

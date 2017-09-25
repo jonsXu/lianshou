@@ -6,12 +6,14 @@ import routers from './router'
 import Vuex from 'vuex'
 import Router from 'vue-router'
 import store from './store'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'src/assets/css/vali.less'
 import 'src/assets/css/common.less'
 import 'src/assets/css/iconfont.css'   // 引入字体样式
 
 
 Vue.use(Router)
+Vue.use(VueAwesomeSwiper)
 
 Vue.config.productionTip = false
 // 并且配置路由规则

@@ -1,7 +1,7 @@
 
 import Hello from 'src/components/Hello'
 import demo from 'src/view/demo/demo'
-
+import yiyao from 'src/view/demo/yiyao'
 
 export default [
     {
@@ -18,6 +18,11 @@ export default [
       path: '/demo',
       name: 'demo',
       component: demo
-    }
+    },
+    {
+      path: '/yiyao',
+      name: 'yiyao',
+      component: yiyao
+    },
 
 ]
