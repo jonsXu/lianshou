@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<html xmlns="http://www.w3.org/1999/xhtml">  
+<head>  
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+<title>无标题文档</title>  
+<style>  
+body{ background:green;}  
+#c1{ background:white;}  
+span{ color:white;}  
+</style>  
+<script>  
+var hehe= null
+var input = [[],[],[],[]]
+window.onload = function(){  
+     
+    var flag = 0;//竖排
+    var flag1= 0;//横排
+      
+       
+    hehe = function (){
+        var oC = document.getElementById('c1');  
+    var oGC = oC.getContext('2d');
+    oGC.fillStyle="red"; 
+    var x=100*flag;
+    oGC.fillRect(x,0,100,100);  
+        var num = 0;
+        var test = setInterval(function(){  
+              
+            
+              
+            
+              
+            
+            if(oC.width-input[flag].length*100==100){
+                input[flag].push("1");
+                clearInterval(test) 
+            }else {
+                oGC.clearRect(x,num,100,100);
+
+                num= num + 100;
+                oGC.fillRect(x,num,100,100);     
+                if(num+100== oC.width-input[flag].length*100){
+                input[flag].push("1");
+                flag +=1
+                if(flag>=3){
+                    flag = 0;
+                }
+                
+                clearInterval(test) 
+            }
+            }
+            
+            console.info(num)
+            console.info(test)
+        },10);  
+      
+      }
+      hehe();
+    // while(flag<1){
+    //     console.info(111);
+    // }
+    
+    
+};  
+  
+</script>  
+</head>  
+  
+<body>  
+<canvas id="c1" width="400" height="400">  
+    <span>不支持canvas浏览器</span>  
+</canvas> <!--默认：宽300 高150-->  
+<h1 onclick="hehe()">111</h1>
+</body>  
+</html>
