@@ -1,6 +1,6 @@
 
 import Home from 'src/view/home/demo'
-
+import Game from 'src/view/game/index.vue'
 
 export default [
     {
@@ -8,6 +8,9 @@ export default [
       name: 'home',
       component: Home
     },
-    
-
+    {
+      path: '/game',
+      name: 'game',
+      component: Game
+    },
 ]

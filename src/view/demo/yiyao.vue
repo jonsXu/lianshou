@@ -18,7 +18,8 @@
           </li>
           <div class="clear"></div>
         </ul>
-        
+        <div class="hehes"></div>
+        <img src="../../assets/images/1.jpg">
       </div>
 </div>
 </template>
@@ -92,6 +93,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style type="stylesheet/less" scoped lang="less">
 @import '~assets/css/vali';
+.hehes{
+  height: 200px;
+  background: url('~assets/images/1.jpg') no-repeat 100%;
+}
 .title_black{
   
   background:rgba(0,0,0,.2);
