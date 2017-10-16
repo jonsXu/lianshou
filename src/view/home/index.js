@@ -12,14 +12,17 @@ export default {
       
       ...mapGetters([
         'nameGetter',
+        'ctxGetter'
       ])
   },
   methods:{
     ...mapActions([
-        'setName' // 映射 this.increment() 为 this.$store.dispatch('increment')
+        'setName',
+        'setCtx' // 映射 this.increment() 为 this.$store.dispatch('increment')
     ]),
     hehe(){
       this.setName("gege")
+      this.setCtx('xixi')
     }
   },
   mounted(){

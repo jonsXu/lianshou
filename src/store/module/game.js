@@ -3,7 +3,7 @@ import * as types from '../mutations/index'
 // initial state
 // shape: [{ id, quantity }]
 const state = {
-  ctx:null
+  ctx:{}
 }
 
 

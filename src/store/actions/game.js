@@ -1,9 +1,11 @@
+
 import * as types from '../mutations/index'
 
-export const setCtx = ({ commit }, ctx) => {
-    commit(types.GAME_CTX, ctx)
-  }
+// export const setCtx = ({ commit }, name) => {
+//     commit(types.GAME_CTX, name)
+//   }
 
-// export default{
-//     nameGetter : state => state.demo.name,
-// }
+export default{  setCtx : ({ commit }, name) => {
+    commit(types.GAME_CTX, name)
+  }
+}

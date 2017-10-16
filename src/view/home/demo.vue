@@ -1,6 +1,8 @@
 <template>
     <div class="home">
       <div class="title">最无聊的俄罗斯方块</div>
+      {{nameGetter}} {{ctxGetter}}
+      <a @click="hehe">sadasd</a>
         <canvas id="c1">  
           <span>不支持canvas浏览器</span>  
       </canvas>
