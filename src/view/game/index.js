@@ -11,10 +11,12 @@ export default {
       ctx:null,//画布对象
       noWblock:null,//当前正在下落的方块
       newFlag:true,//是否新生成一个方块
+      
+      defr:0,//下落延迟  ,
       allWindow:{
         timer:null,
         imgs:[],//加载好的图片
-        speed:1,//速度级数
+        speed:25,//速度级数
       }//全局对象
     }
   },
@@ -58,6 +60,7 @@ export default {
       
         self.run()
       })
+      self.moveBlock()
     },
     /**
      * 刷新画布，遍历每个格子。根据格子的值来画不同的图
@@ -91,7 +94,7 @@ export default {
           self.dropStop()
           self.reflahCavs()
           
-      },1000)
+      },40)
       //this.ctx.drawImage(oimg, 6* self.cellWidth, 0 * self.cellWidth, '20', '20');
     },
   /**
@@ -118,17 +121,75 @@ export default {
         
       })
     },
+    //方块下落停止
     dropStop(){
       let self = this 
-      if(self.noWblock.XandY[0].x==19 || self.matrix[self.noWblock.XandY[0].x+1][self.noWblock.XandY[0].y]==1){
-        self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=1
-        self.noWblock = self.createBlock()
-        self.newFlag = true
-      }else {
-          self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=-1
-          self.noWblock.XandY[0].x++
-          self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=0
-          self.newFlag = false
+      if(self.defr == self.allWindow.speed) {
+      //如果到底部 或者碰到一个方块了 就重新生成方块开始移动
+        if(self.noWblock.XandY[0].x==19 || self.matrix[self.noWblock.XandY[0].x+1][self.noWblock.XandY[0].y]==1){
+          self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=1
+          self.noWblock = self.createBlock()
+          self.newFlag = true
+        }else {
+        //否则就继续移动，移动中的方块的 值=0
+        /**
+       * 为什么给这个defr延迟，是为了让下落方块的基础时间为1秒下落一次，
+       * 基础速度为25，刷新时间为40ms每次。
+       * 定时器内执行下落方法，每40ms就执行一次下落方法，每次执行都给defr+1.
+       * 等到defr==速度极数 就是25，的时候  才会执行一次下落逻辑。
+       * 这个时候40ms*25=1000ms =1秒。
+       * 用40ms的刷新是为了让每次移动也能看到移动的轨迹
+       * 
+          * self.allWindow.timer = setInterval(function(){
+            /**
+             * block.XandY = [{
+              x:6*self.cellWidth,y:0
+            }]
+            
+            self.dropStop()
+            self.reflahCavs()
+            
+        },40)
+       */
+       
+            self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=-1
+            self.noWblock.XandY[0].x++
+            self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=0
+            self.newFlag = false
+          }
+          self.defr = 0
+        } else{
+          self.defr++
+        }
+      
+      
+    },
+    //按键控制移动 37左 ，39右 38上  40 下
+    moveBlock(){
+      let self = this 
+      document.onkeydown = function(event){
+        if(event.keyCode==37){
+          //左移动
+
+          if(self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y-1]==1||self.noWblock.XandY[0].y==0){
+            //如果往左移动的时候 碰到一个实体方块，或者当前已经在最左边了，就停止移动
+            return false
+          } else{
+            self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=-1
+            self.noWblock.XandY[0].y--
+            self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=0
+          }
+        }else if(event.keyCode==39) {
+          ///右移动
+          if(self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y+1]==1||self.noWblock.XandY[0].y==11){
+            //如果往右移动的时候 碰到一个实体方块，或者当前已经在最右边了，就停止移动
+            return false
+          } else{
+            self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=-1
+            self.noWblock.XandY[0].y++
+            self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=0
+          }
+        }
       }
     }
   },
