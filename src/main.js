@@ -9,7 +9,9 @@ import store from './store'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'src/assets/css/vali.less'
 import 'src/assets/css/common.less'
-import 'src/assets/css/iconfont.css'   // 引入字体样式
+import 'src/assets/css/iconfont.css'   // 引入字体样式 jquery.jqprint-0.3
+// import 'src/common/jquery-3.2.1.min' 
+// import 'src/common/jquery.jqprint-0.3' 
 
 
 Vue.use(Router)
