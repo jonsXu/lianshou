@@ -226,18 +226,20 @@ export default {
   watch:{
     matrix:{
       handler: function () {
+        //满一行减掉
         console.info(111);
         let self = this
         self.matrix.forEach(function(obj, index){
           var i = 0
           var l = 0
           for(i;i<obj.length;) {
-            if(obj[i]>0&&i==12){
+            if(obj[i]<=0){
+              break;
             }else {
               i++
             }
           }
-          if(i==obj.length-1) {
+          if(i==obj.length) {
             self.matrix.splice(index,1)
             let newRow = new Array(12);
             for(let j = 0 ; j<newRow.length ;j++) {
