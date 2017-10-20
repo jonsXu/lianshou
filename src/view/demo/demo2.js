@@ -1,6 +1,6 @@
 import { mapGetters, mapActions } from 'vuex'
 export default {
-  name: 'demo',
+  name: 'demotwo',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
@@ -27,12 +27,9 @@ export default {
       // this.setCtx('xixi')
       //this.test.push(2)
 
-      //this.msg =this.msg+ '  我我我';
-      this.test[0]=this.test[0]+1
-      //this.$set(this.test,0,this.test[0]+1)
-      // this.$nextTick(() => {
-        
-      // })
+      //this.test[0]=this.test[0]+1
+      this.$set(this.test,0,this.test[0]+1)//这样的监听才有效  主要原因是 vue响应式原理的问题。
+
       
     }
   },

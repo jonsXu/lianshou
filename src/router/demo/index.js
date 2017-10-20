@@ -1,7 +1,8 @@
 
-import Hello from 'src/components/Hello'
-import demo from 'src/view/demo/demo'
-import yiyao from 'src/view/demo/yiyao'
+import Hello from 'src/components/Hello.vue'
+import demo from 'src/view/demo/demo.vue'
+import demo2 from 'src/view/demo/demo2.vue'
+import yiyao from 'src/view/demo/yiyao.vue'
 
 export default [
     {
@@ -18,6 +19,11 @@ export default [
       path: '/demo',
       name: 'demo',
       component: demo
+    },
+    {
+      path: '/demo2',
+      name: 'demo2',
+      component: demo2
     },
     {
       path: '/yiyao',

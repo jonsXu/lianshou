@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import index from './index'
+import demotwo from './demo2'
     export default {
-        ...index
+        ...demotwo
     }
 </script>
 

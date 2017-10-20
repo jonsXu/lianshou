@@ -7,7 +7,7 @@ export default {
       noIngImg:'../../../static/null.png',
       width:0,//画布的宽
       cellWidth:0,//单元块的边长
-      matrix: new Array(20),
+      matrix: [new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),],
       ctx:null,//画布对象
       noWblock:null,//当前正在下落的方块
       newFlag:true,//是否新生成一个方块
@@ -17,7 +17,8 @@ export default {
         timer:null,
         imgs:[],//加载好的图片
         speed:25,//速度级数
-      }//全局对象
+      },//全局对象
+      test:[1,2]
     }
   },
   computed: {
@@ -39,6 +40,11 @@ export default {
       self.matrix[block.XandY[0].x][block.XandY[0].y]=0
       return block;
     },
+    setMatRix(i,j,number){
+      let self = this
+      //self.matrix[i][j] = number;
+      self.$set(self.matrix[i],j,number)
+    },
     //初始化画布
     init(){
       let draw = this.$refs.draw//画布
@@ -49,11 +55,10 @@ export default {
       let self = this 
       this.loadImgs([this.isIngImg,this.noIngImg],function(){
           for(var i = 0; i < 20; i ++) { // 初始化矩阵数组
-            self.matrix[i] = new Array(12);
             for (var j = 0; j < 12; j ++) {
-              self.matrix[i][j] = -1;
+              self.setMatRix(i,j,-1);
                 //ctx.fillRect(j * this.cellWidth,i * this.cellWidth,150,75);
-                self.ctx.drawImage(self.allWindow.imgs[1], j * self.cellWidth, i * self.cellWidth, '20', '20');
+              self.ctx.drawImage(self.allWindow.imgs[1], j * self.cellWidth, i * self.cellWidth, '20', '20');
               // ctx.drawImage(this.noIngImg, j * this.cellWidth, i * this.cellWidth, this.noIngImg.width, this.noIngImg.height);
             }
         }
@@ -127,7 +132,8 @@ export default {
       if(self.defr == self.allWindow.speed) {
       //如果到底部 或者碰到一个方块了 就重新生成方块开始移动
         if(self.noWblock.XandY[0].x==19 || self.matrix[self.noWblock.XandY[0].x+1][self.noWblock.XandY[0].y]==1){
-          self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=1
+          self.setMatRix(self.noWblock.XandY[0].x,self.noWblock.XandY[0].y,1)
+          //self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=1
           self.noWblock = self.createBlock()
           self.newFlag = true
         }else {
@@ -151,12 +157,14 @@ export default {
             
         },40)
        */
-       
-            self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=-1
+            self.setMatRix(self.noWblock.XandY[0].x,self.noWblock.XandY[0].y,-1)
+            // self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=-1
             self.noWblock.XandY[0].x++
-            self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=0
+            self.setMatRix(self.noWblock.XandY[0].x,self.noWblock.XandY[0].y,0)
+            //self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=0
             self.newFlag = false
           }
+          //self.test.push(1)
           self.defr = 0
         } else{
           self.defr++
@@ -170,28 +178,44 @@ export default {
       document.onkeydown = function(event){
         if(event.keyCode==37){
           //左移动
-
           if(self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y-1]==1||self.noWblock.XandY[0].y==0){
             //如果往左移动的时候 碰到一个实体方块，或者当前已经在最左边了，就停止移动
             return false
           } else{
-            self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=-1
+            self.setMatRix(self.noWblock.XandY[0].x,self.noWblock.XandY[0].y,-1)
+            //self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=-1
             self.noWblock.XandY[0].y--
-            self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=0
+            self.setMatRix(self.noWblock.XandY[0].x,self.noWblock.XandY[0].y,0)
+            //self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=0
           }
-        }else if(event.keyCode==39) {
+        } else if(event.keyCode==39) {
           ///右移动
           if(self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y+1]==1||self.noWblock.XandY[0].y==11){
             //如果往右移动的时候 碰到一个实体方块，或者当前已经在最右边了，就停止移动
             return false
           } else{
-            self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=-1
+            self.setMatRix(self.noWblock.XandY[0].x,self.noWblock.XandY[0].y,-1)
+            //self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=-1
             self.noWblock.XandY[0].y++
-            self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=0
+            self.setMatRix(self.noWblock.XandY[0].x,self.noWblock.XandY[0].y,0)
+            //self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=0
           }
+        } else if(event.keyCode==40) {
+          //如果当按下的键为↓的时候，就把速度等级设置为1级。把延迟设置为1这样 1 = 1，就不会延迟了  那么就直接40ms就刷新一次 下降的时间就是40ms下一格
+          self.allWindow.speed = 1 
+          self.defr = 1
+        }
+      }
+      document.onkeyup = function(event) {
+        //监听按键的放开事件，
+        if(event.keyCode==40) {
+          //当放开的为↓的时候，就把值恢复到原来的样子
+          self.allWindow.speed = 25 
+          self.defr = 0
         }
       }
     }
+    
   },
   
   mounted(){
@@ -199,4 +223,37 @@ export default {
     this.init()
     //alert("mounted")
   },
+  watch:{
+    matrix:{
+      handler: function () {
+        console.info(111);
+        let self = this
+        self.matrix.forEach(function(obj, index){
+          var i = 0
+          var l = 0
+          for(i;i<obj.length;) {
+            if(obj[i]>0&&i==12){
+            }else {
+              i++
+            }
+          }
+          if(i==obj.length-1) {
+            self.matrix.splice(index,1)
+            let newRow = new Array(12);
+            for(let j = 0 ; j<newRow.length ;j++) {
+              newRow[j] = -1
+            }
+            self.matrix.splice(0,0,newRow)
+          }
+        })
+      },
+      ///deep: true
+    },
+    'test':{
+      handler:function(){
+        alert(11)
+      },
+      deep: true
+    }
+  }
 }
