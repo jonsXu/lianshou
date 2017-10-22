@@ -31,19 +31,77 @@ export default {
         'setCtx' // 映射 this.increment() 为 this.$store.dispatch('increment')
     ]),
     //创建一个block对象
-    createBlock(){
+    createBlock(str){
       let self = this 
       var block = new Object()
-      block.XandY = [{
-        x:0,y:6
-      }]//初始坐标位置
+      //默认第一个按钮的坐标就是x=0 y=6
+      block.type = str
+      let XandY = null
+      switch(str){
+        //z型
+        case 1 :
+          XandY = [
+            {x:0,y:6},
+            {x:1,y:6},
+            {x:2,y:7},
+            {x:2,y:7}
+          ]
+         break;
+         //l型
+         case 2 :
+          XandY = [
+            {x:0,y:6},
+            {x:1,y:6},
+            {x:2,y:6},
+            {x:3,y:6}
+          ]
+         break;
+         //T 型
+         case 3 :
+          XandY = [
+            {x:0,y:6},
+            {x:1,y:6},
+            {x:1,y:7},
+            {x:1,y:5}
+          ]
+         break;
+         //L型
+         case 4 :
+          XandY = [
+            {x:0,y:6},
+            {x:0,y:7},
+            {x:1,y:7},
+            {x:2,y:7}
+          ]
+         break;
+         //田型
+         case 5 :
+          XandY = [
+            {x:0,y:6},
+            {x:0,y:7},
+            {x:1,y:6},
+            {x:1,y:7}
+          ]
+         break;
+      }
+      block.XandY = XandY//初始坐标位置
       self.matrix[block.XandY[0].x][block.XandY[0].y]=0
       return block;
     },
+    //将方块在画布的值设置好
+    setBlockToMatRix(number){
+      let self = this 
+      self.noWblock.forEach(function(obj,index){
+        self.setMatRix(obj.x,obj.y,number)
+      })
+    },
+    //更新值
     setMatRix(i,j,number){
       let self = this
       //self.matrix[i][j] = number;
-      self.$set(self.matrix[i],j,number)
+      if(i>=0){
+        self.$set(self.matrix[i],j,number)
+      }
     },
     //初始化画布
     init(){
@@ -214,7 +272,8 @@ export default {
           self.defr = 0
         }
       }
-    }
+    },
+    
     
   },
   
