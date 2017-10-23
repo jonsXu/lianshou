@@ -9,7 +9,7 @@ export default {
       cellWidth:0,//单元块的边长
       matrix: [new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),],
       ctx:null,//画布对象
-      noWblock:null,//当前正在下落的方块
+      nowBlock:null,//当前正在下落的方块
       newFlag:true,//是否新生成一个方块
       
       defr:0,//下落延迟  ,
@@ -31,7 +31,8 @@ export default {
         'setCtx' // 映射 this.increment() 为 this.$store.dispatch('increment')
     ]),
     //创建一个block对象
-    createBlock(str){
+    createBlock(){
+      let str = parseInt(Math.random()*5)+1
       let self = this 
       var block = new Object()
       //默认第一个按钮的坐标就是x=0 y=6
@@ -43,7 +44,7 @@ export default {
           XandY = [
             {x:0,y:6},
             {x:1,y:6},
-            {x:2,y:7},
+            {x:1,y:7},
             {x:2,y:7}
           ]
          break;
@@ -60,9 +61,9 @@ export default {
          case 3 :
           XandY = [
             {x:0,y:6},
+            {x:1,y:5},
             {x:1,y:6},
-            {x:1,y:7},
-            {x:1,y:5}
+            {x:1,y:7}
           ]
          break;
          //L型
@@ -85,13 +86,13 @@ export default {
          break;
       }
       block.XandY = XandY//初始坐标位置
-      self.matrix[block.XandY[0].x][block.XandY[0].y]=0
-      return block;
+      self.nowBlock = block
+      self.setBlockToMatRix(0)
     },
     //将方块在画布的值设置好
     setBlockToMatRix(number){
       let self = this 
-      self.noWblock.forEach(function(obj,index){
+      self.nowBlock.XandY.forEach(function(obj,index){
         self.setMatRix(obj.x,obj.y,number)
       })
     },
@@ -144,19 +145,13 @@ export default {
     run(){
       console.info(this.allWindow.imgs)
       console.info("进入到run")
-      var self = this 
-      //var h = 0
-      self.noWblock = self.createBlock()
+
+      var self = this
+      self.createBlock()
       self.reflahCavs()
       self.allWindow.timer = setInterval(function(){
-        /**
-         * block.XandY = [{
-          x:6*self.cellWidth,y:0
-        }]/
-        */
           self.dropStop()
           self.reflahCavs()
-          
       },40)
       //this.ctx.drawImage(oimg, 6* self.cellWidth, 0 * self.cellWidth, '20', '20');
     },
@@ -184,15 +179,32 @@ export default {
         
       })
     },
+    //判断方块是否停止下落
+    judgeStop(){
+      let flag = false
+      let self = this
+      let l = self.nowBlock.XandY.length;
+      for(let i=0;i<l;i++){
+        let obj = self.nowBlock.XandY[i]
+        if(obj.x==19||self.matrix[obj.x+1][obj.y]==1){
+          flag = true
+          break;
+        }else {
+          flag = false
+        }
+      }
+      return flag
+    },
     //方块下落停止
     dropStop(){
       let self = this 
       if(self.defr == self.allWindow.speed) {
       //如果到底部 或者碰到一个方块了 就重新生成方块开始移动
-        if(self.noWblock.XandY[0].x==19 || self.matrix[self.noWblock.XandY[0].x+1][self.noWblock.XandY[0].y]==1){
-          self.setMatRix(self.noWblock.XandY[0].x,self.noWblock.XandY[0].y,1)
+        if(self.judgeStop()){
+          self.setBlockToMatRix(1)
+          //self.setMatRix(self.nowBlock.XandY[0].x,self.nowBlock.XandY[0].y,1)
           //self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=1
-          self.noWblock = self.createBlock()
+          self.createBlock()
           self.newFlag = true
         }else {
         //否则就继续移动，移动中的方块的 值=0
@@ -215,10 +227,11 @@ export default {
             
         },40)
        */
-            self.setMatRix(self.noWblock.XandY[0].x,self.noWblock.XandY[0].y,-1)
-            // self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=-1
-            self.noWblock.XandY[0].x++
-            self.setMatRix(self.noWblock.XandY[0].x,self.noWblock.XandY[0].y,0)
+            self.setBlockToMatRix(-1)
+            self.nowBlock.XandY.forEach(function(obj){
+              obj.x++
+            })
+            self.setBlockToMatRix(0)
             //self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=0
             self.newFlag = false
           }
@@ -230,38 +243,82 @@ export default {
       
       
     },
+    /**
+     * 判断左右移动边界值
+     * @param {*} str 方向 1左  2右
+     */
+    judgeRightOrLeft(str){
+      let self = this
+      let flag = false
+      let l = self.nowBlock.XandY.length;
+      
+      if(str == 1 ) {
+        for(let i=0;i<l;i++){
+          let obj = self.nowBlock.XandY[i]
+          if(obj.y==0||self.matrix[obj.x][obj.y-1]>0){
+            //如果往左移动的时候 碰到一个实体方块，或者当前已经在最左边了，就停止移动
+            flag = true
+            break;
+          }else {
+            flag = false
+          }
+        }
+      }else {
+        for(let i=0;i<l;i++){
+          let obj = self.nowBlock.XandY[i]
+          if(obj.y==11||self.matrix[obj.x][obj.y+1]>0){
+            //如果往右移动的时候 碰到一个实体方块，或者当前已经在最右边了，就停止移动
+            flag = true
+            break;
+          }else {
+            flag = false
+          }
+        }
+      }
+      return flag
+    },
     //按键控制移动 37左 ，39右 38上  40 下
     moveBlock(){
       let self = this 
       document.onkeydown = function(event){
         if(event.keyCode==37){
           //左移动
-          if(self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y-1]==1||self.noWblock.XandY[0].y==0){
-            //如果往左移动的时候 碰到一个实体方块，或者当前已经在最左边了，就停止移动
+          if(self.judgeRightOrLeft(1)){
             return false
           } else{
-            self.setMatRix(self.noWblock.XandY[0].x,self.noWblock.XandY[0].y,-1)
-            //self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=-1
-            self.noWblock.XandY[0].y--
-            self.setMatRix(self.noWblock.XandY[0].x,self.noWblock.XandY[0].y,0)
-            //self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=0
+            self.setBlockToMatRix(-1)
+            self.nowBlock.XandY.forEach(function(obj){
+              obj.y--
+            })
+            self.setBlockToMatRix(0)
           }
         } else if(event.keyCode==39) {
           ///右移动
-          if(self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y+1]==1||self.noWblock.XandY[0].y==11){
+          if(self.judgeRightOrLeft(2)){
             //如果往右移动的时候 碰到一个实体方块，或者当前已经在最右边了，就停止移动
             return false
           } else{
-            self.setMatRix(self.noWblock.XandY[0].x,self.noWblock.XandY[0].y,-1)
+            self.setBlockToMatRix(-1)
+            //self.setMatRix(self.noWblock.XandY[0].x,self.noWblock.XandY[0].y,-1)
             //self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=-1
-            self.noWblock.XandY[0].y++
-            self.setMatRix(self.noWblock.XandY[0].x,self.noWblock.XandY[0].y,0)
+            self.nowBlock.XandY.forEach(function(obj){
+              obj.y++
+            })
+            //self.noWblock.XandY[0].y++
+            self.setBlockToMatRix(0)
+            //self.setMatRix(self.noWblock.XandY[0].x,self.noWblock.XandY[0].y,0)
             //self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=0
           }
         } else if(event.keyCode==40) {
           //如果当按下的键为↓的时候，就把速度等级设置为1级。把延迟设置为1这样 1 = 1，就不会延迟了  那么就直接40ms就刷新一次 下降的时间就是40ms下一格
           self.allWindow.speed = 1 
           self.defr = 1
+        } else if(event.keyCode==38) {
+          //田字不变形
+          if(self.nowBlock.type !=5) {
+            self.rotate()
+          }
+         
         }
       }
       document.onkeyup = function(event) {
@@ -273,10 +330,38 @@ export default {
         }
       }
     },
-    
-    
+   /**
+    * 旋转变化，我自己以第三个坐标为旋转中心 （顺时针），
+     * y1:旋转中心的y坐标,x1:旋转中心的x坐标
+     * y:要旋转的方块的y坐标，x:要旋转的方块的x坐标
+     * y(目)：旋转后的方块的y坐标，x(目):旋转过后的方块的x坐标
+     * 
+     * 公式是：y(目):y1+x1-x
+     *        x(目):x1+y-y1
+    * @param {*} c旋转中心方块 
+    * @param {*} m需要旋转的方块
+    */
+    rotateChange(c,m){
+      return {x:c.x+m.y-c.y,y:c.y+c.x-m.x}
+    },
+    //旋转，选取第三个方块为旋转中心顺时针旋转
+    rotate(){
+      let self= this
+      //旋转前要判断是否可以旋转，就是判断边界值
+      if(!self.judgeRightOrLeft()&&!self.judgeStop()){  
+        self.setBlockToMatRix(-1)
+        console.info(self.nowBlock.XandY)
+        self.nowBlock.XandY.forEach(function(obj,index){
+          if(index !=2){
+            obj = self.rotateChange(self.nowBlock.XandY[2],obj)
+          }
+        })
+        console.info(self.nowBlock.XandY)
+        self.setBlockToMatRix(0)
+      }
+
+    }
   },
-  
   mounted(){
     //this.sets("wangwang")
     this.init()
