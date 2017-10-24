@@ -21,6 +21,7 @@ export default {
       score:0,//得分,
       againRest:false,//重新开始
       stop:true,//播放 暂停控制
+      speedflag:false,//是否加速
     }
   },
   computed: {
@@ -311,15 +312,17 @@ export default {
         //self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=0
       }
     },
-    //加速
-    addSpeed(){
-      this.allWindow.speed = 1 
-      this.defr = 1
-    },
     //恢复速度
-    resetSpeed(){
-      this.allWindow.speed = 25
-      this.defr = 0
+    changeSpeed(){
+      this.speedflag = !this.speedflag//true 加快  false恢复
+      if(this.speedflag) {
+        this.allWindow.speed = 1 
+        this.defr = 1
+      } else{
+        this.allWindow.speed = 25
+        this.defr = 0
+      }
+      
     },
     /**
      * 按键控制移动 37左 ，39右 38上  40 下 给电脑用
@@ -335,7 +338,7 @@ export default {
           self.moveRight()
         } else if(event.keyCode==40) {
           //如果当按下的键为↓的时候，就把速度等级设置为1级。把延迟设置为1这样 1 = 1，就不会延迟了  那么就直接40ms就刷新一次 下降的时间就是40ms下一格
-          self.addSpeed()
+          self.changeSpeed()
         } else if(event.keyCode==38) {
           console.log(38)
           self.rotate()
@@ -346,7 +349,7 @@ export default {
         //监听按键的放开事件，
         if(event.keyCode==40) {
           //当放开的为↓的时候，就把值恢复到原来的样子
-          self.resetSpeed()
+          self.changeSpeed()
         }
       }
     },
@@ -470,7 +473,7 @@ export default {
       }else{
         clearInterval(this.allWindow.timer)
       }
-    }
+    },
   },
   mounted(){
     //this.sets("wangwang")

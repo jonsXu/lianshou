@@ -15,7 +15,7 @@
         </li>
 
         <li class="bottom">
-          <a @mousedown="addSpeed" @mouseup="resetSpeed"><i class="iconfont icon-fangxiangxia"></i></a>
+          <a @click="changeSpeed"><i class="iconfont icon-fangxiangxia" ></i></a>
         </li>
       </ul>
       <div class="confirm" v-if="againRest">
