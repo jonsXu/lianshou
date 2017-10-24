@@ -5,9 +5,8 @@
       <a @click="hehe">sadasd</a>
             <!-- <router-link :to="{path:'/game',query:{name:'中文'}}">sadasd</router-link> -->
             {{test[0]}}
-        <canvas id="c1">  
-          <span>不支持canvas浏览器</span>  
-      </canvas>
+      <br>
+      <a @click="testOa">校验对象的数组的深浅拷贝</a>
     </div>
 </template>
 

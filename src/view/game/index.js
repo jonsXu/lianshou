@@ -18,7 +18,9 @@ export default {
         imgs:[],//加载好的图片
         speed:25,//速度级数
       },//全局对象
-      test:[1,2]
+      score:0,//得分,
+      againRest:false,//重新开始
+      stop:true,//播放 暂停控制
     }
   },
   computed: {
@@ -42,46 +44,46 @@ export default {
         //z型
         case 1 :
           XandY = [
-            {x:0,y:6},
+            {x:0,y:5},
+            {x:1,y:5},
             {x:1,y:6},
-            {x:1,y:7},
-            {x:2,y:7}
+            {x:2,y:6}
           ]
          break;
          //l型
          case 2 :
           XandY = [
-            {x:0,y:6},
-            {x:1,y:6},
-            {x:2,y:6},
-            {x:3,y:6}
+            {x:0,y:5},
+            {x:1,y:5},
+            {x:2,y:5},
+            {x:3,y:5}
           ]
          break;
          //T 型
          case 3 :
           XandY = [
-            {x:0,y:6},
+            {x:0,y:5},
+            {x:1,y:4},
             {x:1,y:5},
-            {x:1,y:6},
-            {x:1,y:7}
+            {x:1,y:6}
           ]
          break;
          //L型
          case 4 :
           XandY = [
+            {x:0,y:5},
             {x:0,y:6},
-            {x:0,y:7},
-            {x:1,y:7},
-            {x:2,y:7}
+            {x:1,y:6},
+            {x:2,y:6}
           ]
          break;
          //田型
          case 5 :
           XandY = [
+            {x:0,y:5},
             {x:0,y:6},
-            {x:0,y:7},
-            {x:1,y:6},
-            {x:1,y:7}
+            {x:1,y:5},
+            {x:1,y:6}
           ]
          break;
       }
@@ -106,6 +108,7 @@ export default {
     },
     //初始化画布
     init(){
+      this.againRest = false
       let draw = this.$refs.draw//画布
       this.ctx = draw.getContext('2d')
       this.setCtx(this.ctx)
@@ -121,7 +124,7 @@ export default {
               // ctx.drawImage(this.noIngImg, j * this.cellWidth, i * this.cellWidth, this.noIngImg.width, this.noIngImg.height);
             }
         }
-      
+        self.createBlock()
         self.run()
       })
       self.moveBlock()
@@ -147,7 +150,7 @@ export default {
       console.info("进入到run")
 
       var self = this
-      self.createBlock()
+      // self.createBlock()
       self.reflahCavs()
       self.allWindow.timer = setInterval(function(){
           self.dropStop()
@@ -180,13 +183,13 @@ export default {
       })
     },
     //判断方块是否停止下落
-    judgeStop(){
+    judgeStop(block){
       let flag = false
       let self = this
-      let l = self.nowBlock.XandY.length;
+      let l = block.XandY.length;
       for(let i=0;i<l;i++){
-        let obj = self.nowBlock.XandY[i]
-        if(obj.x==19||self.matrix[obj.x+1][obj.y]==1){
+        let obj = block.XandY[i]
+        if(obj.x>=19||self.matrix[obj.x+1][obj.y]>0){
           flag = true
           break;
         }else {
@@ -200,7 +203,7 @@ export default {
       let self = this 
       if(self.defr == self.allWindow.speed) {
       //如果到底部 或者碰到一个方块了 就重新生成方块开始移动
-        if(self.judgeStop()){
+        if(self.judgeStop(self.nowBlock)){
           self.setBlockToMatRix(1)
           //self.setMatRix(self.nowBlock.XandY[0].x,self.nowBlock.XandY[0].y,1)
           //self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=1
@@ -235,7 +238,6 @@ export default {
             //self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=0
             self.newFlag = false
           }
-          //self.test.push(1)
           self.defr = 0
         } else{
           self.defr++
@@ -247,15 +249,15 @@ export default {
      * 判断左右移动边界值
      * @param {*} str 方向 1左  2右
      */
-    judgeRightOrLeft(str){
+    judgeRightOrLeft(block,str){
       let self = this
       let flag = false
-      let l = self.nowBlock.XandY.length;
+      let l = block.XandY.length;
       
       if(str == 1 ) {
         for(let i=0;i<l;i++){
-          let obj = self.nowBlock.XandY[i]
-          if(obj.y==0||self.matrix[obj.x][obj.y-1]>0){
+          let obj = block.XandY[i]
+          if(obj.y<=0||self.matrix[obj.x][obj.y-1]>0){
             //如果往左移动的时候 碰到一个实体方块，或者当前已经在最左边了，就停止移动
             flag = true
             break;
@@ -265,8 +267,8 @@ export default {
         }
       }else {
         for(let i=0;i<l;i++){
-          let obj = self.nowBlock.XandY[i]
-          if(obj.y==11||self.matrix[obj.x][obj.y+1]>0){
+          let obj = block.XandY[i]
+          if(obj.y>=11||self.matrix[obj.x][obj.y+1]>0){
             //如果往右移动的时候 碰到一个实体方块，或者当前已经在最右边了，就停止移动
             flag = true
             break;
@@ -277,47 +279,66 @@ export default {
       }
       return flag
     },
-    //按键控制移动 37左 ，39右 38上  40 下
-    moveBlock(){
+    //左移动
+    moveLeft(){
+      let self = this
+      if(self.judgeRightOrLeft(self.nowBlock,1)){
+        return false
+      } else{
+        self.setBlockToMatRix(-1)
+        self.nowBlock.XandY.forEach(function(obj){
+          obj.y--
+        })
+        self.setBlockToMatRix(0)
+      }
+    },
+    //右移动
+    moveRight(){
+      let self = this
+      if(self.judgeRightOrLeft(self.nowBlock,2)){
+        //如果往右移动的时候 碰到一个实体方块，或者当前已经在最右边了，就停止移动
+        return false
+      } else{
+        self.setBlockToMatRix(-1)
+        //self.setMatRix(self.noWblock.XandY[0].x,self.noWblock.XandY[0].y,-1)
+        //self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=-1
+        self.nowBlock.XandY.forEach(function(obj){
+          obj.y++
+        })
+        //self.noWblock.XandY[0].y++
+        self.setBlockToMatRix(0)
+        //self.setMatRix(self.noWblock.XandY[0].x,self.noWblock.XandY[0].y,0)
+        //self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=0
+      }
+    },
+    //加速
+    addSpeed(){
+      this.allWindow.speed = 1 
+      this.defr = 1
+    },
+    //恢复速度
+    resetSpeed(){
+      this.allWindow.speed = 25
+      this.defr = 0
+    },
+    /**
+     * 按键控制移动 37左 ，39右 38上  40 下 给电脑用
+     * @param {*} key 
+     */
+    moveBlock(key){
       let self = this 
       document.onkeydown = function(event){
         if(event.keyCode==37){
           //左移动
-          if(self.judgeRightOrLeft(1)){
-            return false
-          } else{
-            self.setBlockToMatRix(-1)
-            self.nowBlock.XandY.forEach(function(obj){
-              obj.y--
-            })
-            self.setBlockToMatRix(0)
-          }
+          self.moveLeft()
         } else if(event.keyCode==39) {
-          ///右移动
-          if(self.judgeRightOrLeft(2)){
-            //如果往右移动的时候 碰到一个实体方块，或者当前已经在最右边了，就停止移动
-            return false
-          } else{
-            self.setBlockToMatRix(-1)
-            //self.setMatRix(self.noWblock.XandY[0].x,self.noWblock.XandY[0].y,-1)
-            //self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=-1
-            self.nowBlock.XandY.forEach(function(obj){
-              obj.y++
-            })
-            //self.noWblock.XandY[0].y++
-            self.setBlockToMatRix(0)
-            //self.setMatRix(self.noWblock.XandY[0].x,self.noWblock.XandY[0].y,0)
-            //self.matrix[self.noWblock.XandY[0].x][self.noWblock.XandY[0].y]=0
-          }
+          self.moveRight()
         } else if(event.keyCode==40) {
           //如果当按下的键为↓的时候，就把速度等级设置为1级。把延迟设置为1这样 1 = 1，就不会延迟了  那么就直接40ms就刷新一次 下降的时间就是40ms下一格
-          self.allWindow.speed = 1 
-          self.defr = 1
+          self.addSpeed()
         } else if(event.keyCode==38) {
-          //田字不变形
-          if(self.nowBlock.type !=5) {
-            self.rotate()
-          }
+          console.log(38)
+          self.rotate()
          
         }
       }
@@ -325,11 +346,11 @@ export default {
         //监听按键的放开事件，
         if(event.keyCode==40) {
           //当放开的为↓的时候，就把值恢复到原来的样子
-          self.allWindow.speed = 25 
-          self.defr = 0
+          self.resetSpeed()
         }
       }
     },
+
    /**
     * 旋转变化，我自己以第三个坐标为旋转中心 （顺时针），
      * y1:旋转中心的y坐标,x1:旋转中心的x坐标
@@ -346,20 +367,109 @@ export default {
     },
     //旋转，选取第三个方块为旋转中心顺时针旋转
     rotate(){
+      
       let self= this
+      if(self.nowBlock.type ==5)  return false //田字不变型
       //旋转前要判断是否可以旋转，就是判断边界值
-      if(!self.judgeRightOrLeft()&&!self.judgeStop()){  
+      let block = new Object()
+      block.type= self.nowBlock.type
+      block.XandY = self.nowBlock.XandY.slice(0,self.nowBlock.XandY.length)
+      let flag = true
+      for(let i =0 ;i<block.XandY.length;i++){
+        if(i!=2){
+          block.XandY[i] = self.rotateChange(block.XandY[2],block.XandY[i])
+          let x= block.XandY[i].x ,y=block.XandY[i].y
+          //旋转后的坐标 不能超过边界值,并且方块上不能存在实体方块
+          if((y<0||y>11||x>19||x<0)||self.matrix[x][y]>0){
+            flag= false
+            break;
+          } else {
+            flag = true
+          }
+        }
+      }
+
+      if(flag){  
         self.setBlockToMatRix(-1)
         console.info(self.nowBlock.XandY)
-        self.nowBlock.XandY.forEach(function(obj,index){
-          if(index !=2){
-            obj = self.rotateChange(self.nowBlock.XandY[2],obj)
-          }
-        })
+        self.nowBlock.XandY = block.XandY.slice(0,block.XandY.length)
+        //self.nowBlock.XandY = 
+        // let XandY = self.nowBlock.XandY
+        // self.nowBlock.XandY.forEach(function(obj,index,arrys){
+        //   if(index !=2){
+        //     arrys[index] = self.rotateChange(self.nowBlock.XandY[2],obj)
+        //   }
+        // })
         console.info(self.nowBlock.XandY)
         self.setBlockToMatRix(0)
       }
 
+    },
+    /**
+     * 得分调用
+     */
+    getScore(){
+      let self = this
+      var l = 0
+      self.matrix.forEach(function(obj, index){
+        var i = 0
+        for(i;i<obj.length;) {
+          if(obj[i]<=0){
+            break;
+          }else {
+            i++
+          }
+        }
+        if(i==obj.length) {
+          l++;
+          self.matrix.splice(index,1)
+          let newRow = new Array(12);
+          for(let j = 0 ; j<newRow.length ;j++) {
+            newRow[j] = -1
+          }
+          self.matrix.splice(0,0,newRow)
+        }
+      })
+      switch(l){
+        case 1:
+         self.score += 100
+         break;
+        case 2:
+         self.score += 300
+         break;
+        case 3:
+         self.score += 500
+         break;
+        case 4:
+         self.score += 700
+         break;
+      }
+    },
+    //游戏结束
+    gameOver(){
+      let obj =  this.matrix[0]
+      let flag = false
+      for(let i=0; i<obj.length; i++) {
+        if(obj[i]==1){
+          flag = true
+          break;
+        }else {
+          flag = false
+        }
+      }
+      if(flag) {
+        clearInterval(this.allWindow.timer)
+        this.againRest = true
+      }
+    },
+    //暂停
+    stopOrContinue(){
+      this.stop = !this.stop
+      if(this.stop){
+        this.run()
+      }else{
+        clearInterval(this.allWindow.timer)
+      }
     }
   },
   mounted(){
@@ -373,33 +483,10 @@ export default {
         //满一行减掉
         console.info(111);
         let self = this
-        self.matrix.forEach(function(obj, index){
-          var i = 0
-          var l = 0
-          for(i;i<obj.length;) {
-            if(obj[i]<=0){
-              break;
-            }else {
-              i++
-            }
-          }
-          if(i==obj.length) {
-            self.matrix.splice(index,1)
-            let newRow = new Array(12);
-            for(let j = 0 ; j<newRow.length ;j++) {
-              newRow[j] = -1
-            }
-            self.matrix.splice(0,0,newRow)
-          }
-        })
-      },
+        self.getScore()
+        self.gameOver()
       ///deep: true
-    },
-    'test':{
-      handler:function(){
-        alert(11)
       },
-      deep: true
     }
   }
 }

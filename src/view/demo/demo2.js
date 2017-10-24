@@ -6,7 +6,9 @@ export default {
       msg: 'Welcome to Your Vue.js App',
       test:[1,2],
       imgUrl:'~static/1.png',
-    
+      obj1:{
+        oA:[1,2]
+      }
 
     }
   },
@@ -31,6 +33,16 @@ export default {
       this.$set(this.test,0,this.test[0]+1)//这样的监听才有效  主要原因是 vue响应式原理的问题。
 
       
+    },
+    testOa(){
+      
+      var obj2 = new Object()
+      let l = this.obj1.oA.length
+      //如果不用slice 用obj2.oA = this.obj1.oA，还是数组的浅拷贝，拷贝的是引用
+      obj2.oA = this.obj1.oA.slice(0,l)
+      obj2.oA[0] = 4
+      console.info(obj2)
+      console.info(this.obj1)
     }
   },
   mounted(){
