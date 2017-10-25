@@ -22,6 +22,10 @@ export default {
       againRest:false,//重新开始
       stop:true,//播放 暂停控制
       speedflag:false,//是否加速
+      canvas:{
+        width:0,
+        height:0,
+      }
     }
   },
   computed: {
@@ -121,12 +125,13 @@ export default {
             for (var j = 0; j < 12; j ++) {
               self.setMatRix(i,j,-1);
                 //ctx.fillRect(j * this.cellWidth,i * this.cellWidth,150,75);
-              self.ctx.drawImage(self.allWindow.imgs[1], j * self.cellWidth, i * self.cellWidth,20, 20);
+              self.ctx.drawImage(self.allWindow.imgs[1], j * self.cellWidth, i * self.cellWidth, self.rem, self.rem);
               // ctx.drawImage(this.noIngImg, j * this.cellWidth, i * this.cellWidth, this.noIngImg.width, this.noIngImg.height);
             }
         }
         self.createBlock()
-        self.run()
+        // if(self.stop)
+        // self.run()
       })
       self.moveBlock()
     },
@@ -141,7 +146,7 @@ export default {
         }
         for(var j=0; j<col.length;j++){
           var oimg = self.matrix[i][j]<0?self.allWindow.imgs[1]:self.allWindow.imgs[0];
-          self.ctx.drawImage(oimg, j * self.cellWidth, i * self.cellWidth,20, 20);
+          self.ctx.drawImage(oimg, j * self.cellWidth, i * self.cellWidth, self.rem, self.rem);
         }
       })
     },
@@ -476,7 +481,12 @@ export default {
   },
   mounted(){
     //this.sets("wangwang")
-    this.init()
+    this.rem = document.documentElement.getBoundingClientRect().width / 16 
+    this.canvas.width = this.rem*12
+    this.canvas.height = this.rem*20
+    this.$nextTick(function(){
+      this.init()
+    })
    
     //alert("mounted")
   },

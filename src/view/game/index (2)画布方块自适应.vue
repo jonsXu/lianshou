@@ -54,6 +54,7 @@ import index from './index'
   .main{
     position: relative;
     height: 100%;
+    background: url('~assets/images/gameBg.jpg') no-repeat 100%;
     .score{
 
     }
@@ -71,6 +72,7 @@ import index from './index'
     }
     .controls{
       width: 6rem;
+      height: 4.5rem;
       margin: 0 auto;
       position: relative;
       i{
