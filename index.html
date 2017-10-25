@@ -2,7 +2,24 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" id="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="full-screen" content="yes">
+    <meta name="viewport" id="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,maximum-scale=1.0">
     <title>呵呵</title>
   </head>
   <body>
@@ -11,14 +28,20 @@
   </body>
   <script>
    let html = document.documentElement;
- 
- window.rem = html.getBoundingClientRect().width / 16 ;
- html.style.fontSize = window.rem + 'px';
+    window.rem = html.getBoundingClientRect().width / 16 ;
+    console.info(html.getBoundingClientRect().height)
+    html.style.fontSize = window.rem + 'px';
  </script>
  <style>
+   html{
+     width: 100%;
+     height: 100%;
+   }
   body{
     margin: 0;
     padding: 0;
+    height: 100%;
+    width: 100%;
   }
  </style>
 </html>
