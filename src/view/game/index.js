@@ -170,12 +170,13 @@ export default {
       let self = this
       let l = imgs.length
       let h = 0
+      let sw = document.documentElement.getBoundingClientRect().width / 16 ;
       imgs.forEach(function(img,index){
         let imgObject = new Image()
         imgObject.src = img;
         imgObject.onload = function(){
-          // this.width = this.width * sw
-          // this.height = this.height * sw
+          this.width = sw
+          this.height = sw
           self.allWindow.imgs.push(this)
           h++
           h>=l&&fun()
@@ -324,6 +325,7 @@ export default {
       }
       
     },
+
     /**
      * 按键控制移动 37左 ，39右 38上  40 下 给电脑用
      * @param {*} key 
