@@ -5,11 +5,7 @@ import demo2 from 'src/view/demo/demo2.vue'
 import yiyao from 'src/view/demo/yiyao.vue'
 
 export default [
-    {
-      path: '/',
-      name: 'Hello',
-      component: Hello
-    },
+    
     {
       path: '/hello',
       name: 'Hello',

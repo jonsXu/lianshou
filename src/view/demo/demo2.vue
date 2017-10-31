@@ -6,6 +6,8 @@
             <!-- <router-link :to="{path:'/game',query:{name:'中文'}}">sadasd</router-link> -->
             {{test[0]}}
       <br>
+      <br>
+      <span v-for="item in obj3">{{item.name}}   {{item.game}}<br></span>
       <a @click="testOa">校验对象的数组的深浅拷贝</a>
     </div>
 </template>

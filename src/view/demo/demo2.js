@@ -8,6 +8,17 @@ export default {
       imgUrl:'~static/1.png',
       obj1:{
         oA:[1,2]
+      },
+      obj3:[{
+        name:'1',
+        age:1
+      },{
+        name:'2',
+        age:2,
+      }],
+      ren:{
+        name:'4',
+        age:4
       }
 
     }
@@ -43,6 +54,7 @@ export default {
       obj2.oA[0] = 4
       console.info(obj2)
       console.info(this.obj1)
+      this.$set(this.obj3,0 ,this.ren)
     }
   },
   mounted(){
