@@ -17,6 +17,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   height: 100%;
+  background: rgba(178, 255, 237,0.6);
 }
 .icon {
    width: 1em; height: 1em;

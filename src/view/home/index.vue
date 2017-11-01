@@ -10,7 +10,7 @@
         </div>
         <img class="car" src="~assets/images/car.png">
       </div>
-        <ul class="btns">
+        <ul class="btns animated bounceInDown">
             <li>
               <router-link to='/test'>
                 <span>美食轰趴</span>
@@ -21,7 +21,7 @@
             </li>
           
             <li>
-              <router-link to='/test'>
+              <router-link to='/game'>
                 <span>轻松一刻</span>
                 <svg class="icon icon-font1" aria-hidden="true">
                   <use xlink:href="#icon-objects-color_controller"></use>
@@ -105,6 +105,8 @@ import index from './index'
       -webkit-animation: snow2 3s linear infinite;
     }
     .btns{
+      animation-duration: 2s;
+      animation-delay:2.5s;
       position: absolute;
       width: 100%;
       top:75%;
