@@ -1,7 +1,7 @@
 <template>
     <div class="home">
       <div class="title">
-        <span class="t1 animated wobble">欢迎光临</span>——<span class="t2 animated rubberBand">欢乐小bus</span>
+        <span class="t1 animated wobble">欢迎登乘</span> —— <span class="t2 animated rubberBand">旅途小bus</span>
       </div>
       <div class="box">
         <div class="bg_home1">
@@ -10,12 +10,26 @@
         </div>
         <img class="car" src="~assets/images/car.png">
       </div>
-        <!-- <div class="bg_home3">
-          <img src="~assets/images/home_back.jpg">
-        </div>
-        <div class="bg_home4">
-          <img src="~assets/images/home_back.jpg">
-        </div> -->
+        <ul class="btns">
+            <li>
+              <router-link to='/test'>
+                <span>美食轰趴</span>
+                <svg class="icon icon-font1" aria-hidden="true">
+                  <use xlink:href="#icon-meishijiayin"></use>
+                </svg>
+              </router-link>
+            </li>
+          
+            <li>
+              <router-link to='/test'>
+                <span>轻松一刻</span>
+                <svg class="icon icon-font1" aria-hidden="true">
+                  <use xlink:href="#icon-objects-color_controller"></use>
+                </svg>
+              </router-link>
+            </li>
+         
+        </ul>
     </div>
 </template>
 
@@ -33,9 +47,16 @@ import index from './index'
     width: 100%;
     height: 100%;
     color: white;
-    background: rgba(178, 255, 237, .4);
+    background: rgba(178, 255, 237,0.6);
+    .icon-font1{
+      font-size: 1.4rem;
+    }
     .title{
       color:#f326c5;
+      span{
+        color:#f326c5;
+      }
+      
       height: 5rem;
       line-height: 10rem;
       font-weight: bold;
@@ -49,6 +70,8 @@ import index from './index'
       .t2{
         text-align: left;
         animation-duration: 2s;
+        animation-delay:1s;
+        -webkit-animation-delay:1s;
       }
     }
     .box{
@@ -65,7 +88,7 @@ import index from './index'
         left: 30%;
       }
     }
-    .bg_home1,.bg_home2,.bg_home3,.bg_home4{
+    .bg_home1,.bg_home2,{
         position: absolute;
         width: 100%;
         height: 100%;
@@ -80,6 +103,31 @@ import index from './index'
     }
     .bg_home2{
       -webkit-animation: snow2 3s linear infinite;
+    }
+    .btns{
+      position: absolute;
+      width: 100%;
+      top:75%;
+      display: flex;
+      height: 2rem;
+      li{
+        flex: 1;
+        a{
+          display: block;
+          height: 1.5rem;
+          width: 80%;
+          margin: 0 auto;
+          border: 1px solid rgba(114, 210, 121, .7);
+          border-radius: 4px;
+          background: rgba(114, 210, 121, .7);
+          line-height: 1.5rem;
+          span{
+            color: white;
+            
+          }
+          
+        }
+      }
     }
   }
   @-webkit-keyframes snow {
