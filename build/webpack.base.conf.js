@@ -3,6 +3,7 @@ var fs = require('fs')
 var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
+var autoprefixer = require('autoprefixer');
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -17,7 +18,7 @@ module.exports = {
     filename: '[name].js',
     publicPath: process.env.NODE_ENV === 'production'
       ? config.build.assetsPublicPath
-      : config.dev.assetsPublicPath
+      : config.dev.assetsPublicPath,
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
@@ -28,7 +29,7 @@ module.exports = {
       "assets":resolve("src/assets"),
       "static":resolve("static"),
     },
-    symlinks: false
+    symlinks: false,
   },
   module: {
     rules: [
@@ -66,10 +67,10 @@ module.exports = {
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
       },
-      // {
-      //   test: /\.css$/,
-      //   loader: "style-loader!css-loader",
-      // },
+      {
+        test: /\.css$/,
+        loader: "style-loader!css-loader!postcss-loader",
+      },
       {
         test: /\.less$/,
         loader: "style-loader!css-loader!less-loader",
@@ -81,5 +82,5 @@ module.exports = {
 
     ],
     
-  }
+  },
 }

@@ -71,7 +71,6 @@ import index from './index'
         text-align: left;
         animation-duration: 2s;
         animation-delay:1s;
-        -webkit-animation-delay:1s;
       }
     }
     .box{
@@ -99,10 +98,10 @@ import index from './index'
     .bg_home1{
        //-webkit-transform: translateX(0);
           //transform: translateX(0);
-      -webkit-animation: snow 3s linear infinite;
+      animation: snow 3s linear infinite;
     }
     .bg_home2{
-      -webkit-animation: snow2 3s linear infinite;
+      animation: snow2 3s linear infinite;
     }
     .btns{
       animation-duration: 2s;
@@ -132,14 +131,14 @@ import index from './index'
       }
     }
   }
-  @-webkit-keyframes snow {
-    0% { opacity: 1; -webkit-transform: translateX(0); transform: translateX(0); }
-    100% { opacity: 1; -webkit-transform: translateX(-100%); transform: translateX(-100%); }
-  }
-   @-webkit-keyframes snow2 {
-    0% { opacity: 1; -webkit-transform: translateX(100%); transform: translateX(100%); }
-    100% { opacity: 1; -webkit-transform: translateX(0rem); transform: translateX(0rem); }
-  }
+  // @-webkit-keyframes snow {
+  //   0% { opacity: 1; -webkit-transform: translateX(0); transform: translateX(0); }
+  //   100% { opacity: 1; -webkit-transform: translateX(-100%); transform: translateX(-100%); }
+  // }
+  //  @-webkit-keyframes snow2 {
+  //   0% { opacity: 1; -webkit-transform: translateX(100%); transform: translateX(100%); }
+  //   100% { opacity: 1; -webkit-transform: translateX(0rem); transform: translateX(0rem); }
+  // }
   @keyframes snow2 {
     0% { opacity: 1; -webkit-transform: translateX(100%); transform: translateX(100%); }
     100% { opacity: 1; -webkit-transform: translateX(0rem); transform: translateX(0rem); }
