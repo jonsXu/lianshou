@@ -66,7 +66,7 @@ import index from './index'
         position: absolute;
         top: 53%;
         animation-name:roate;
-        animation-duration: 1s;
+        animation-duration: .5s;
         animation-timing-function: linear;
         //animation-delay: 1s;
         animation-iteration-count: infinite;
