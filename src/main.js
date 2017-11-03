@@ -7,6 +7,7 @@ import Vuex from 'vuex'
 import Router from 'vue-router'
 import store from './store'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
+import Component from './components'  // 全局组件
 import 'src/assets/css/vali.less'
 import 'src/assets/css/common.less'
 import 'src/assets/css/iconfont.css'
@@ -19,7 +20,7 @@ import 'src/assets/css/iconfont.js'
 
 Vue.use(Router)
 Vue.use(VueAwesomeSwiper)
-
+Vue.use(Component)
 Vue.config.productionTip = false
 // 并且配置路由规则
 const router = new Router({

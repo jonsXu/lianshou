@@ -1,7 +1,13 @@
 <template>
-    <div class="home">
+    <pg-wrapper class="home">
       <div class="title">
-        <span class="t1 animated wobble">欢迎登乘</span> —— <span class="t2 animated rubberBand">旅途小bus</span>
+        <span class="t1 animated wobble">欢迎登乘</span> —— 
+        <span class="t2 animated fadeInLeft">
+          旅途小bus
+          <pg-icon name="luntai" class="lunzi l1" isNormal="0" ></pg-icon>
+          <pg-icon name="luntai" class="lunzi l2" isNormal="0" ></pg-icon>
+        </span>
+        
       </div>
       <div class="box">
         <div class="bg_home1">
@@ -14,23 +20,22 @@
             <li>
               <router-link to='/test'>
                 <span>美食轰趴</span>
-                <svg class="icon icon-font1" aria-hidden="true">
+                <pg-icon name="meishijiayin" class="icon-font1" isNormal="0" ></pg-icon>
+                <!-- <svg class="icon icon-font1" aria-hidden="true">
                   <use xlink:href="#icon-meishijiayin"></use>
-                </svg>
+                </svg> -->
               </router-link>
             </li>
           
             <li>
               <router-link to='/game'>
                 <span>轻松一刻</span>
-                <svg class="icon icon-font1" aria-hidden="true">
-                  <use xlink:href="#icon-objects-color_controller"></use>
-                </svg>
+                <pg-icon name="objects-color_controller" class="icon-font1" isNormal="0" ></pg-icon>
               </router-link>
             </li>
          
         </ul>
-    </div>
+    </pg-wrapper>
 </template>
 
 <script>
@@ -56,7 +61,22 @@ import index from './index'
       span{
         color:#f326c5;
       }
-      
+      .lunzi{
+        font-size: 19px;
+        position: absolute;
+        top: 53%;
+        animation-name:roate;
+        animation-duration: 1s;
+        animation-timing-function: linear;
+        //animation-delay: 1s;
+        animation-iteration-count: infinite;
+      }
+      .l1{
+        right: 5.8rem;
+      }
+      .l2{
+        right:1.8rem;
+      }
       height: 5rem;
       line-height: 10rem;
       font-weight: bold;
@@ -71,6 +91,7 @@ import index from './index'
         text-align: left;
         animation-duration: 2s;
         animation-delay:1s;
+        position: relative;
       }
     }
     .box{
@@ -139,12 +160,25 @@ import index from './index'
   //   0% { opacity: 1; -webkit-transform: translateX(100%); transform: translateX(100%); }
   //   100% { opacity: 1; -webkit-transform: translateX(0rem); transform: translateX(0rem); }
   // }
+  /*
+    -webkit-transform: translateX(0rem);
+    -webkit-transform: translateX(100%);
+  */
   @keyframes snow2 {
-    0% { opacity: 1; -webkit-transform: translateX(100%); transform: translateX(100%); }
-    100% { opacity: 1; -webkit-transform: translateX(0rem); transform: translateX(0rem); }
+    0% { opacity: 1;  transform: translateX(100%); }
+    100% { opacity: 1;  transform: translateX(0); }
   }
   @keyframes snow {
-    0% { opacity: 1; -webkit-transform: translateX(0); transform: translateX(0); }
-    100% { opacity: 1; -webkit-transform: translateX(-100%); transform: translateX(-100%); }
-  }  
+    0% { opacity: 1; transform: translateX(0); }
+    100% { opacity: 1;  transform: translateX(-100%); }
+  }
+   @keyframes roate {
+    0%{transform:rotate(0deg);}
+    50%{
+      transform:rotate(180deg);
+    }
+    100%{
+      transform:rotate(360deg);
+    }
+  }    
 </style>
