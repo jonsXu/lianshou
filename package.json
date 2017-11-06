@@ -13,6 +13,8 @@
     "test": "npm run unit && npm run e2e"
   },
   "dependencies": {
+    "axios": "^0.17.0",
+    "better-scroll": "^1.4.0",
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
     "strip-ansi": "^4.0.0",

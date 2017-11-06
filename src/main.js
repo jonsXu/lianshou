@@ -7,6 +7,7 @@ import Vuex from 'vuex'
 import Router from 'vue-router'
 import store from './store'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
+import axios from 'axios'
 import Component from './components'  // 全局组件
 import 'src/assets/css/vali.less'
 import 'src/assets/css/common.less'
@@ -22,6 +23,7 @@ Vue.use(Router)
 Vue.use(VueAwesomeSwiper)
 Vue.use(Component)
 Vue.config.productionTip = false
+Vue.prototype.$axios=axios
 // 并且配置路由规则
 const router = new Router({
   mode: 'history',

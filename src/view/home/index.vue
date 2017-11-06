@@ -18,7 +18,7 @@
       </div>
         <ul class="btns animated bounceInDown">
             <li>
-              <router-link to='/test'>
+              <router-link to='/food'>
                 <span>美食轰趴</span>
                 <pg-icon name="meishijiayin" class="icon-font1" isNormal="0" ></pg-icon>
                 <!-- <svg class="icon icon-font1" aria-hidden="true">

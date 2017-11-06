@@ -1,6 +1,5 @@
 <template>
     <pg-wrapper class="home">
-      <room-info class="header" :form="data.seller"></room-info>
     </pg-wrapper>
 </template>
 
@@ -17,8 +16,5 @@ import index from './index'
   .home{
     background: white;
     position: relative;
-    .header{
-      width:100%;
-    }
   }  
 </style>
