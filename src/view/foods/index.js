@@ -1,5 +1,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import RoomInfo from './components/roomInfo/index.vue'
+import MenuList from './components/menu/index.vue'
+import GoodsList from './components/goodslist/index.vue'
 import BScroll from 'better-scroll' 
 import qs from 'qs'
 export default {
@@ -44,5 +46,7 @@ export default {
   },
   components:{
     RoomInfo,
+    GoodsList,
+    MenuList,
   }
 }

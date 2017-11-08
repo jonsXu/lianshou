@@ -2,7 +2,8 @@ import { mapGetters, mapActions } from 'vuex'
 import BScroll from 'better-scroll' 
 import qs from 'qs'
 export default {
-  name: 'demotwo',
+  name: 'GoodsList',
+  props:['list'],
   data () {
     return {
       data:{}

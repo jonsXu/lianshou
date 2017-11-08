@@ -10,6 +10,7 @@
         width: 100%;
         position: relative;
         margin: 0 auto;
+        height: 100%;
     }
 </style>
 

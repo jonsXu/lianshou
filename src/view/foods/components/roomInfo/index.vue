@@ -9,10 +9,20 @@
                     
                 </div>
                 <div class="timeDes">{{form.description}}/{{form.deliveryTime}}分钟内送达</div>
+                <div class="descri">
+                    <div class="benefit">
+                        <img src="static/decrease_1@2x.png" srcset="static/decrease_1@3x.png 2x"><span>{{form.supports[0].description}}</span>
+                    </div>
+                    <div class="benefitNum">{{form.supports.length}}个 ></div>
+                    <div class="clear"></div>
+                </div>
             </div>
             
         </div>
-        <div class="message"></div>
+        <div class="message">
+                <img src="static/bulletin@2x.png" srcset="static/bulletin@3x.png 2x">
+                <span class="noticeContent">{{form.bulletin}}</span><span class="jian">></span>
+        </div>
         <div class="headBg">
             <img :src="form.avatar" width="100%" height="100%" >
         </div>
@@ -37,38 +47,94 @@ import index from './index'
       .info{
         width: 100%;
         position: relative;
-        display: flex;
         padding: 1rem;
+        box-sizing: border-box;
+        display: flex;
         z-index: 1;
         .roomImg{
             margin-right: 1rem;
+            display: block;
         }
-        .title{
+        .text{
+            width: 100%;
+            .title{
             font-size: 16px;
-            span{
-                display: inline-block;
-                vertical-align: top;
-                line-height: 18px;
-                font-weight: bold;
-            }
-            .img{
-                width: 30px;
-                height: 18px;
-                background-size: 30px 18px;
-                background-repeat: no-repeat;
-                background-image: url(~static/brand@2x.png);
-                margin-right: 1rem;
+            text-align: left;
+                span{
+                    display: inline-block;
+                    vertical-align: top;
+                    line-height: 18px;
+                    font-weight: bold;
+                }
+                .img{
+                    width: 30px;
+                    height: 18px;
+                    background-size: 30px 18px;
+                    background-repeat: no-repeat;
+                    //background-image:-webkit-image-set(url(~static/brand@2x.png) 1x,url(~static/brand@3x.png) 2x);
+                    background-image: url(~static/brand@2x.png);
+                    margin-right: .5rem;
             }
         }
         .timeDes{
-            font-size: 14px;
+            font-size: 12px;
             text-align: left;
             margin:10px 0 ;
         }
+        .descri{
+            width: 100%;
+            font-size: 12px;
+            height: 1rem;
+            .benefit{
+                overflow: hidden;
+                text-overflow:ellipsis;
+                white-space: nowrap;
+                width: 70%;
+                float: left;
+                text-align: left;
+                img{
+                    height: 14px;
+                    width: 14px;
+                    vertical-align:bottom;
+                }
+                span{
+                    display: inline-block;
+                    margin-left: .5rem;
+                    
+                }
+            }
+            .benefitNum{
+                float: right;
+                height: 100%;
+                width: 2rem;
+                background: rgba(7,17,27,0.5);
+                border-radius: .5rem;
+                line-height: 1rem;
+            }
+        }
+        }
+        
       }
       .message{
           width: 100%;
           z-index: 1;
+          position: relative;
+          text-align: left;
+          background: rgba(7,17,27,0.2);
+          img{
+              margin-left: 1rem;
+              display: inline-block;
+              width: 22px;
+              height: 12px;
+          }
+          .noticeContent{
+            display: inline-block;
+            overflow: hidden;
+            text-overflow:ellipsis;
+            white-space: nowrap;
+            width: 75%;
+            font-size: 12px;
+          }
       }
       .headBg{
         position: absolute;

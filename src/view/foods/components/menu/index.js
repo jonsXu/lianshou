@@ -1,11 +1,13 @@
 import { mapGetters, mapActions } from 'vuex'
-import BScroll from 'better-scroll' 
+import Bscroll from 'better-scroll' 
 import qs from 'qs'
 export default {
-  name: 'demotwo',
+  name: 'MenuList',
+  props:['menuList'],
   data () {
     return {
-      data:{}
+      datas:[],
+      index:0
     }
   },
   computed: {
@@ -19,26 +21,23 @@ export default {
         'setName',
         'setCtx' //
     ]),
-    getData(){
-      this.$axios({
-        method: 'get', // 请求协议
-        url: 'static/data.json', // 请求的地址
-        // data: qs.stringify(data), // post 请求的数据
-        timeout: 30000, // 超时时间, 单位毫秒
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest'
-        }
-      }).then(result=>{
-        if(result.status==200){
-          this.data=result.data
-        }
-         
-      })
+    initScroll(){
+      if(!this.menuScroll){ 
+        this.$nextTick(() => { this.menuScroll = new Bscroll(this.$refs.scrollWap, {}) })
+      } else {
+        this.menuScroll.refresh()
+      }
     }
   },
   mounted(){
-    this.getData()
+    
   },
   watch:{
-  }
+    menuList(datas){
+      this.datas = datas
+      if(datas!=[]&&datas.length>0){
+        this.initScroll()
+      }
+    }
+  },
 }
