@@ -1,7 +1,7 @@
 <template>
     <div class="box">
         <div class="info">
-            <img :src="form.avatar" height="64" width="64" class="roomImg">
+            <img :src="form.avatar"  class="roomImg">
             <div class="text">
                 <div class="title">
                     <span class="img"></span><span>{{form.name}}</span>
@@ -20,8 +20,7 @@
             
         </div>
         <div class="message">
-                <img src="static/bulletin@2x.png" srcset="static/bulletin@3x.png 2x">
-                <span class="noticeContent">{{form.bulletin}}</span><span class="jian">></span>
+            <img src="static/bulletin@2x.png" srcset="static/bulletin@3x.png 2x"><span class="noticeContent">{{form.bulletin}}</span><span class="jian">></span>
         </div>
         <div class="headBg">
             <img :src="form.avatar" width="100%" height="100%" >
@@ -54,6 +53,8 @@ import index from './index'
         .roomImg{
             margin-right: 1rem;
             display: block;
+            height: 3rem;
+            width: 3rem;
         }
         .text{
             width: 100%;
@@ -121,8 +122,10 @@ import index from './index'
           position: relative;
           text-align: left;
           background: rgba(7,17,27,0.2);
+          height: 1rem;
           img{
               margin-left: 1rem;
+              margin-right:.5rem;
               display: inline-block;
               width: 22px;
               height: 12px;

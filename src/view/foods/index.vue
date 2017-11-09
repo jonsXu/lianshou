@@ -1,7 +1,17 @@
 <template>
     <pg-wrapper class="home">
       <room-info class="header" :form="data.seller"></room-info>
-      <div class="tag"></div>
+      <ul class="tag">
+        <li>
+          <span>商品</span>
+        </li>
+        <li>
+          <span>评论</span>
+        </li>
+        <li>
+          <span>商家</span>
+        </li>
+      </ul>
       <div class="middle">
         <menu-list class="menu" :menuList="data.goods"></menu-list>
         <goods-list class="goodslist" :list="data.ratings"></goods-list>
@@ -28,14 +38,18 @@ import index from './index'
        top: 0px;
     }
     .tag{
-      height: 2rem;
+      height: 1.5rem;
       position: relative;
-      background: black;
+      display: flex;
+      li{
+        flex: 1;
+        font-size: 14px;
+      }
     }
     .middle{
       display: flex;
       //这个top为什么别人能定这么准  是因为计算好的。。计算好了高度 然后用top去定 所以定的好 我也可以计算了以后去定
-      top:8rem;
+      top:7.5rem;
       bottom: 0;
       position: absolute;
       width:100%;

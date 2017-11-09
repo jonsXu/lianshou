@@ -32,7 +32,7 @@ import index from './index'
         overflow: hidden;
     }
     .active{
-        background: red;
+        background: white;
         &:after{
             content:none,
         }
