@@ -64,13 +64,13 @@ import index from './index'
                 span{
                     display: inline-block;
                     vertical-align: top;
-                    line-height: 18px;
+                    line-height: 1rem;
                     font-weight: bold;
                 }
                 .img{
-                    width: 30px;
-                    height: 18px;
-                    background-size: 30px 18px;
+                    width: 30/18rem;
+                    height: 1rem;
+                    background-size: 30/18rem 1rem;
                     background-repeat: no-repeat;
                     //background-image:-webkit-image-set(url(~static/brand@2x.png) 1x,url(~static/brand@3x.png) 2x);
                     background-image: url(~static/brand@2x.png);
@@ -78,13 +78,13 @@ import index from './index'
             }
         }
         .timeDes{
-            font-size: 12px;
+            font-size: .5rem;
             text-align: left;
-            margin:10px 0 ;
+            margin:.25rem 0 ;
         }
         .descri{
             width: 100%;
-            font-size: 12px;
+            font-size: .5rem;
             height: 1rem;
             .benefit{
                 overflow: hidden;
@@ -123,12 +123,14 @@ import index from './index'
           text-align: left;
           background: rgba(7,17,27,0.2);
           height: 1rem;
+          padding:0 1rem;
           img{
-              margin-left: 1rem;
               margin-right:.5rem;
               display: inline-block;
               width: 22px;
               height: 12px;
+              float:left;
+              margin-top:.25rem;
           }
           .noticeContent{
             display: inline-block;
@@ -137,6 +139,8 @@ import index from './index'
             white-space: nowrap;
             width: 75%;
             font-size: 12px;
+            height: 100%;
+            line-height: 1rem;
           }
       }
       .headBg{

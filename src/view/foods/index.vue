@@ -41,6 +41,8 @@ import index from './index'
       height: 1.5rem;
       position: relative;
       display: flex;
+      line-height: 1.5rem;
+      
       li{
         flex: 1;
         font-size: 14px;
@@ -53,6 +55,7 @@ import index from './index'
       bottom: 0;
       position: absolute;
       width:100%;
+      
       .menu{
         width: 30%;
       }
