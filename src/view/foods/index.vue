@@ -14,7 +14,7 @@
       </ul>
       <div class="middle">
         <menu-list class="menu" :menuList="data.goods"></menu-list>
-        <goods-list class="goodslist" :list="data.ratings"></goods-list>
+        <goods-list class="goodslist" :list="data.goods"></goods-list>
       </div>
     </pg-wrapper>
 </template>
@@ -60,6 +60,7 @@ import index from './index'
         width: 30%;
       }
       .goodslist{
+        width: 70%;
       }
     }
   }  

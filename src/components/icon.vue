@@ -1,5 +1,5 @@
 <template>
-  <i class="iconfont icon-fangxiangxia" :class="'icon-'+name" @click="tap" v-if="isNormal==='1'"></i>
+  <i class="iconfont" :class="'icon-'+name" @click="tap" v-if="isNormal==='1'"></i>
   <svg class="icon" aria-hidden="true" v-else>
         <use :xlink:href="'#icon-'+name"></use>
   </svg>

@@ -1,12 +1,13 @@
 import { mapGetters, mapActions } from 'vuex'
-import BScroll from 'better-scroll' 
+import Bscroll from 'better-scroll' 
 import qs from 'qs'
 export default {
   name: 'GoodsList',
   props:['list'],
   data () {
     return {
-      data:{}
+      data:[],
+      heights:[0],
     }
   },
   computed: {
@@ -20,26 +21,40 @@ export default {
         'setName',
         'setCtx' //
     ]),
-    getData(){
-      this.$axios({
-        method: 'get', // 请求协议
-        url: 'static/data.json', // 请求的地址
-        // data: qs.stringify(data), // post 请求的数据
-        timeout: 30000, // 超时时间, 单位毫秒
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest'
-        }
-      }).then(result=>{
-        if(result.status==200){
-          this.data=result.data
-        }
-         
-      })
+    initScroll(){
+      console.info(123)
+      if(!this.menuScroll){ 
+        this.$nextTick(() => { 
+          this.judgeHeights()
+          this.menuScroll = new Bscroll(this.$refs.goods, {
+            click: true,
+          }) 
+        })
+      } else {
+        this.menuScroll.refresh()
+      }
+      //this.judgeHeights()
+      
+    },
+    judgeHeights(){
+      let types = this.$refs.goods.querySelectorAll('li.types');
+      let baseHeight = 0 
+      for(let i=0;i<types.length;i++) {
+        let typeH =  types[i].clientHeight
+        baseHeight += typeH;
+        this.heights.push(baseHeight)
+      }
     }
   },
   mounted(){
-    this.getData()
+    
   },
   watch:{
+    list(datas){
+      this.data = datas
+      if(datas!=[]&&datas.length>0){
+        this.initScroll()
+      }
+    }
   }
 }
