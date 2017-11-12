@@ -8,7 +8,9 @@ export default {
   name: 'demotwo',
   data () {
     return {
-      data:{}
+      data:{},
+      typeIndex:0,
+      listType:0,
     }
   },
   computed: {
@@ -37,6 +39,12 @@ export default {
         }
          
       })
+    },
+    typeChange(typeIndex){
+      this.typeIndex=typeIndex
+    },
+    listTypeChange(index){
+      this.listType=index
     }
   },
   mounted(){

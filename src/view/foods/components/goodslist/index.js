@@ -3,18 +3,21 @@ import Bscroll from 'better-scroll'
 import qs from 'qs'
 export default {
   name: 'GoodsList',
-  props:['list'],
+  props:['list','typeIndex'],
   data () {
     return {
       data:[],
       heights:[0],
+      listIndex:0,
+      y:0,
     }
   },
   computed: {
       ...mapGetters([
         'nameGetter',
         'ctxGetter'
-      ])
+      ]),
+
   },
   methods:{
     ...mapActions([
@@ -22,19 +25,35 @@ export default {
         'setCtx' //
     ]),
     initScroll(){
-      console.info(123)
-      if(!this.menuScroll){ 
+      if(!this.goodsScroll){ 
         this.$nextTick(() => { 
           this.judgeHeights()
-          this.menuScroll = new Bscroll(this.$refs.goods, {
+          this.goodsScroll = new Bscroll(this.$refs.goods, {
             click: true,
-          }) 
+            probeType:3,//开启滚动中派发滚动事件事件
+          })
+          this.goodsScroll.on('scroll',(poxY)=>{
+            this.y = Math.abs(Math.round(poxY.y))
+            this.changeMenuIndex(this.y)
+          })
         })
       } else {
-        this.menuScroll.refresh()
+        this.goodsScroll.refresh()
       }
       //this.judgeHeights()
       
+    },
+    //改变导航列表
+    changeMenuIndex(y){
+        for(let i = 0 ;i<=this.heights.length-1;i++) {
+          let item1 = this.heights[i]
+          let item2 = this.heights[i+1]
+          if(this.y>=item1&& this.y<item2){
+            //this.index = i
+            this.listIndex = i
+            return this.$emit('change-index',this.listIndex)
+          }
+        }
     },
     judgeHeights(){
       let types = this.$refs.goods.querySelectorAll('li.types');
@@ -44,6 +63,7 @@ export default {
         baseHeight += typeH;
         this.heights.push(baseHeight)
       }
+      
     }
   },
   mounted(){
@@ -55,6 +75,10 @@ export default {
       if(datas!=[]&&datas.length>0){
         this.initScroll()
       }
-    }
+    },
+    typeIndex(index){
+      //this.index = index
+      this.goodsScroll.scrollTo(0, -this.heights[index], 300)
+    },
   }
 }

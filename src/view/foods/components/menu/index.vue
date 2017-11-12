@@ -2,7 +2,7 @@
     <div class="main">
         <div class="scrollWap" ref="scrollWap">
             <ul>
-                <li class="" v-for="(item,ide) in datas" :class="{'active': index==ide}">
+                <li class="" @click="menuClick(ide)" v-for="(item,ide) in datas" :class="{'active': index==ide}">
                     <span class="name"> {{item.name}}</span>
                     <div class="line"></div>
                 </li>
