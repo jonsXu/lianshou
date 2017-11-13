@@ -2,21 +2,31 @@
     <div class="main">
         <div class="goodsL" ref="goods">
             <ul>
-                <li v-for="item1 in data" class="types">
+                <li v-for="(item1,index1) in data" class="types">
                     <div class="typeTitle">{{item1.name}}</div>
                     <ul>
-                        <li v-for="item2 in item1.foods" class="goodsConten">
+                        <li v-for="(item2,index2) in item1.foods" class="goodsConten">
+
                             <div class="iconImg"><img :src="item2.icon"></div>
                             <div class="goodsDesc">
-                                <h3>{{item2.name}}</h3>
+                                <h3 v-on:click="move($event)">{{item2.name}}</h3>
                                 <div class="des">{{item2.description}}</div>
                                 <div class="sellInfo"><span>月售{{item2.sellCount}}份</span> <span>好评率{{item2.rating}}%</span></div>
                                 <div class="buyInfo">
                                     <span class="price">￥{{item2.price}}</span>
-                                    <div class="buy">
-                                        <pg-icon name="roundaddfill" class="icon-font1" isNormal="1" ></pg-icon>
-                                    </div>
                                 </div>
+                            </div>
+                            <div class="buy">
+                                <transition name="jian">
+                                    <a v-on:click="move(index1,index2,$event)" style="float:left" v-show="item2.buyNumber&&item2.buyNumber>0">
+                                        <pg-icon  name="jianhao"  class="icon-font1"  isNormal="1"></pg-icon>
+                                    </a>
+                                </transition>
+                                <!-- v-if="item2.buyNumber&&item2.buyNumber>0" -->
+                                <div class="buyNumber" v-if="item2.buyNumber&&item2.buyNumber>0">{{item2.buyNumber}}</div>
+                                <a @click="add(index1,index2,$event)" style="float:right" class="jia">
+                                    <pg-icon name="roundaddfill" class="icon-font1 " isNormal="1"  ></pg-icon>
+                                </a>
                             </div>
                         </li>
                     </ul>
@@ -36,6 +46,7 @@ import index from './index'
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
   @import '~assets/css/vali';
+  
   .main{
     background: white;
     position: relative;
@@ -58,6 +69,7 @@ import index from './index'
                 margin: 0 1rem ;
                 border-bottom: 1px solid rgba(7,17,27,0.1);
                 display: flex;
+                position: relative;
                 .iconImg{
                     width: 2.5rem;
                     height: 2.5rem;
@@ -86,15 +98,36 @@ import index from './index'
                             color: red;
                             float: left;
                         }
-                        .buy{
-                            float: right;
-                            .icon-font1{
-                                font-size: .6rem;
-                                color: #00a0dc
-                            }
+                    }
+                }
+                .buy{
+                    position: absolute;
+                    right: 0;
+                    bottom: .8rem;
+                    width: 2rem;
+                    .buyNumber{
+                        display: inline-block;
+                    } 
+                    .jian-enter, .jian-leave-to{
+                        transform:  translateX(1.5rem) rotate(360deg);
+                        opacity: 0;
+                    }
+                    .jian-enter-active, .jian-leave-active{
+                        //transform:rotate(180deg);
+                        transition: all .5s linear;
+                    }
+                    a{
+                        display: inline-block;
+                        .icon-font1{
+                            font-size: .6rem;
+                            color: #00a0dc;
                         }
                         
+
                     }
+                    
+                    
+                    
                 }
             }
             .goodsConten:last-child{

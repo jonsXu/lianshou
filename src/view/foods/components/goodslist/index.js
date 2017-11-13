@@ -64,6 +64,18 @@ export default {
         this.heights.push(baseHeight)
       }
       
+    },
+    add(index1,index2,e){
+      console.info(e)
+      if(this.data[index1].foods[index2].buyNumber&&this.data[index1].foods[index2].buyNumber>0){
+        this.data[index1].foods[index2].buyNumber +=1
+      } else {
+        this.$set(this.data[index1].foods[index2],'buyNumber',1)
+      }
+      
+    },
+    move(index1,index2,event){
+      this.data[index1].foods[index2].buyNumber +=-1
     }
   },
   mounted(){
