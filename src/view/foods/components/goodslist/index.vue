@@ -19,7 +19,7 @@
                             <div class="buy">
                                 <transition name="jian">
                                     <a v-on:click="move(index1,index2,$event)" style="float:left" v-show="item2.buyNumber&&item2.buyNumber>0">
-                                        <pg-icon  name="jianhao"  class="icon-font1"  isNormal="1"></pg-icon>
+                                        <pg-icon  name="jianhao1"  class="icon-font1"  isNormal="1"></pg-icon>
                                     </a>
                                 </transition>
                                 <!-- v-if="item2.buyNumber&&item2.buyNumber>0" -->
@@ -93,7 +93,7 @@ import index from './index'
                         }
                     }
                     .buyInfo{
-                        font-size: .6rem;
+                        font-size: 1rem;
                         .price{
                             color: red;
                             float: left;
@@ -103,23 +103,24 @@ import index from './index'
                 .buy{
                     position: absolute;
                     right: 0;
-                    bottom: .8rem;
-                    width: 2rem;
+                    bottom: .5rem;
+                    width: 3.5rem;
                     .buyNumber{
                         display: inline-block;
+                        font-size: 1rem;
                     } 
                     .jian-enter, .jian-leave-to{
-                        transform:  translateX(1.5rem) rotate(360deg);
+                        transform:  translateX(2.5rem) rotate(360deg);
                         opacity: 0;
                     }
                     .jian-enter-active, .jian-leave-active{
                         //transform:rotate(180deg);
-                        transition: all .5s linear;
+                        transition: all .3s linear;
                     }
                     a{
                         display: inline-block;
                         .icon-font1{
-                            font-size: .6rem;
+                            font-size: 1rem;
                             color: #00a0dc;
                         }
                         
