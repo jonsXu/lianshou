@@ -1,7 +1,15 @@
 <template>
   <div class="main">
       <div class="content">
-        <div class="car"></div>
+        <div class="car">
+          <pg-icon name="cart_fill_light" class="icon-font2" isNormal="1"></pg-icon>
+        </div>
+        <ul class="carInfo">
+            <li class="money">￥9999<span class="line"></span></lic>
+            <li class="des">另需配送费￥4元</li>
+            <li class="btn" @click="test()">￥0元起送</li>
+        </ul>
+        <div class="clear"></div>
       </div>
   </div>
 </template>
@@ -20,6 +28,9 @@ export default {
   methods:{
     tap() {
       this.$emit('click')
+    },
+    test(){
+      console.info(111)
     }
   }
 }
@@ -34,17 +45,50 @@ export default {
     bottom: 0%;
     height: 2rem;
     z-index: 999;
-    background: black;
+    background: #141d27;
     .content{
       margin: 0 1rem;
       .car{
-        height: 2rem;
-        width: 2rem;
-        position: relative;
-        bottom: .3rem;
-        left:.3rem;
+        height: 1.7rem;
+        width: 1.7rem;
+        position: absolute;
+        bottom: .4rem;
+        left:1rem;
         border-radius: 50%;
-        background: red;
+        line-height: 1.7rem;
+        border: .3rem solid #141d27;
+        background: #2b343c;
+        .icon-font2{
+          font-size: 1.2rem;
+          color:#80858a;
+        }
+      }
+      .carInfo{
+        position:absolute;
+        right:0;
+        height: 100%;
+        font-size: .6rem;
+        display: flex;
+        line-height: 2rem;
+        color: rgba(255,255,255,0.4);
+        .btn{
+          width: 4rem;
+          background: #2b343c;
+        }
+        .des{
+          width: 5rem;
+        }
+        .money{
+          width:3.5rem;
+          font-size: .8rem;
+          .line{
+            border-left: 1px solid rgba(255,255,255,0.4);
+            float:right;
+            height:1rem;
+            margin-top:.5rem;
+            display:line-block;
+          }
+        }
       }
     }
   }
