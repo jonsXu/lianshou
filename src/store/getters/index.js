@@ -2,5 +2,6 @@
 // export const ctxGetter = state => state.game.ctx
 export default{
     nameGetter : state => state.demo.name,
-    ctxGetter : state => state.game.ctx
+    ctxGetter : state => state.game.ctx,
+    roominfo : state => state.food.roominfo,
 }

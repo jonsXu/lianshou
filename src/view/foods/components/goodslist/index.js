@@ -72,10 +72,11 @@ export default {
       } else {
         this.$set(this.data[index1].foods[index2],'buyNumber',1)
       }
-      
+      this.$emit('add',this.data[index1].foods[index2]);
     },
     move(index1,index2,event){
       this.data[index1].foods[index2].buyNumber +=-1
+      this.$emit('remove',this.data[index1].foods[index2]);
     }
   },
   mounted(){

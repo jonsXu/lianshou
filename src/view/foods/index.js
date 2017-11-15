@@ -11,6 +11,7 @@ export default {
       data:{},
       typeIndex:0,
       listType:0,
+      order:[],//下单的食物的数组
     }
   },
   computed: {
@@ -22,7 +23,8 @@ export default {
   methods:{
     ...mapActions([
         'setName',
-        'setCtx' //
+        'setCtx',
+        'setRoomInfo',//
     ]),
     getData(){
       this.$axios({
@@ -36,8 +38,9 @@ export default {
       }).then(result=>{
         if(result.status==200){
           this.data=result.data
+          this.setRoomInfo(this.data.seller)
         }
-         
+        
       })
     },
     typeChange(typeIndex){
@@ -45,6 +48,19 @@ export default {
     },
     listTypeChange(index){
       this.listType=index
+    },
+    //添加物品到购物车
+    add(item){
+      this.order.push(item)
+    },
+    //移除购物车物品
+    remove(item){
+      for(let i=0 ;i<this.order.length;i++){
+        if(item.name = this.order[i].name){
+          this.order.splice(i,1);
+          break;
+        }
+      }
     }
   },
   mounted(){

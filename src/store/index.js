@@ -4,6 +4,7 @@ import actions from './actions'
 import getters from './getters'
 import demo from './module/index'
 import game from './module/game'
+import food from './module/food'
 
 Vue.use(Vuex)
 
@@ -13,6 +14,7 @@ export default new Vuex.Store({
   modules: {
     demo,
     game,
+    food,
   },
 
 })
