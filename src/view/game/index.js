@@ -480,6 +480,9 @@ export default {
    
     //alert("mounted")
   },
+  beforeDestroy(){
+    clearInterval(this.allWindow.timer)
+  },
   watch:{
     matrix:{
       handler: function () {

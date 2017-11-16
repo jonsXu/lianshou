@@ -136,5 +136,5 @@ import index from './index'
             }
         }
     }
-  }  
+  }
 </style>

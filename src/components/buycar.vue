@@ -1,13 +1,13 @@
 <template>
   <div class="main">
       <div class="content">
-        <div class="car" :class="{'carActive': order.length>0}">
-          <div class="tab" v-if="order.length>0">{{order.length}}</div>
-          <pg-icon name="cart_fill_light" class="icon-font2" isNormal="1" :class="{'iconActive': order.length>0}"></pg-icon>
+        <div class="car" :class="{'carActive': order.length>0}" ref="car">
+            <div class="tab" v-if="order.length>0">{{order.length}}</div>
+            <pg-icon  name="cart_fill_light" class="icon-font2" isNormal="1" :class="{'iconActive': order.length>0}"></pg-icon>
         </div>
         <ul class="carInfo">
             <li class="money">￥{{payMoney}}<span class="line"></span></lic>
-            <li class="des">另需配送费￥4元</li>
+            <li class="des" >另需配送费￥4元</li>
             <li class="btn" :class="{'active': roominfo.minPrice-number<=0}" @click="test()">{{showBtnTxt}}</li>
         </ul>
         <div class="clear"></div>
@@ -21,9 +21,9 @@ export default {
   name: 'PgBuyCar',
   props:{
     order: {
-            type: Array,
-            default: []
-        },
+        type: Array,
+        default: []
+      },
   },
   data () {
     return {
@@ -61,6 +61,22 @@ export default {
     test(){
       console.info(111)
     }
+  },
+  watch:{
+    number(curVal,oldVal){
+      let carDoc = this.$refs.car;
+      let classes = carDoc.className.split(' ')
+      if(curVal>oldVal){
+        if(carDoc.className.indexOf('flybox')) {
+          carDoc.className= classes[0]+' '+classes[1]
+        }
+        carDoc.className= classes[0]+' '+classes[1]+ ' flybox' 
+        
+      }
+      setTimeout(function(){
+          carDoc.className= classes[0]+' '+classes[1]
+      },100)
+    }
   }
 }
 </script>
@@ -86,8 +102,13 @@ export default {
     height: 2rem;
     z-index: 999;
     background: #141d27;
+
     .content{
       margin: 0 1rem;
+      .flybox{
+            animation: bounce-in .1s;
+            animation-timing-function:ease-in;
+        }
       .car{
         height: 1.7rem;
         width: 1.7rem;
@@ -98,6 +119,7 @@ export default {
         line-height: 1.7rem;
         border: .3rem solid #141d27;
         background: #2b343c;
+        
         .icon-font2{
           font-size: 1.2rem;
           color:#80858a;
@@ -143,4 +165,15 @@ export default {
       }
     }
   }
+  @keyframes bounce-in {
+      0%{
+          transform: scale(1,1)
+      }
+      50%{
+          transform: scale(.7,.7);
+      }
+      100%{
+          transform:scale(1,1) ;
+      }
+  }  
 </style>

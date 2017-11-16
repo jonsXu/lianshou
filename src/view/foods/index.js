@@ -11,7 +11,8 @@ export default {
       data:{},
       typeIndex:0,
       listType:0,
-      order:[],//下单的食物的数组
+      order:[],//下单的食物的数组,
+      showBox:false,//显示遮罩
     }
   },
   computed: {
@@ -61,6 +62,9 @@ export default {
           break;
         }
       }
+    },
+    show(item){
+      this.showBox = item
     }
   },
   mounted(){

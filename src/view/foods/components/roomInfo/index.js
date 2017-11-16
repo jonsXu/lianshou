@@ -19,6 +19,9 @@ export default {
         'setName',
         'setCtx' //
     ]),
+    show(){
+      this.$emit('show',true)
+    }
   },
   mounted(){
   },

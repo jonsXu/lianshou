@@ -13,7 +13,7 @@
                     <div class="benefit">
                         <img src="static/decrease_1@2x.png" srcset="static/decrease_1@3x.png 2x"><span>{{form.supports[0].description}}</span>
                     </div>
-                    <div class="benefitNum">{{form.supports.length}}个 ></div>
+                    <a class="benefitNum" @click="show">{{form.supports.length}}个 ></a>
                     <div class="clear"></div>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 <template>
     <pg-wrapper class="home">
-      <room-info class="header" :form="data.seller"></room-info>
+      <room-info class="header" :form="data.seller" @show="show"></room-info>
       <ul class="tag">
         <li>
           <span>商品</span>
@@ -17,6 +17,11 @@
         <goods-list class="goodslist" :list="data.goods" :typeIndex="typeIndex" @change-index="listTypeChange" @add="add" @remove="remove"></goods-list>
       </div>
       <pg-buy-car :order="order"></pg-buy-car>
+      <pg-confirm v-if="showBox" class="confirmBox">
+        <div class="headBox">
+          <h4>{{data.seller.name}}</h4>
+        </div>
+      </pg-confirm>
     </pg-wrapper>
 </template>
 
@@ -62,6 +67,11 @@ import index from './index'
       }
       .goodslist{
         width: 70%;
+      }
+    }
+    .confirmBox{
+      .headBox{
+        margin-top: 3rem;
       }
     }
   }  
