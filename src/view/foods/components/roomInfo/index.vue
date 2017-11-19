@@ -124,6 +124,7 @@ import index from './index'
           background: rgba(7,17,27,0.2);
           height: 1rem;
           padding:0 1rem;
+            box-sizing: border-box;
           img{
               margin-right:.5rem;
               display: inline-block;
