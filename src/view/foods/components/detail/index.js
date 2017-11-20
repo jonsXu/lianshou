@@ -5,7 +5,7 @@ export default {
   name: 'foodDetail',
   data () {
     return {
-      datas:[],
+      datas:{},
       index:0,
     }
   },
@@ -31,13 +31,9 @@ export default {
         this.menuScroll.refresh()
       }
     },
-    menuClick(typeIndex){
-      this.index = typeIndex
-      //this.in = typeIndex
-      this.$emit("type-check",typeIndex)
-    }
   },
   mounted(){
+    this.datas = this.$route.params.data
     this.initScroll();
   },
   watch:{

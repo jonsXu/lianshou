@@ -7,9 +7,9 @@
                     <ul>
                         <li v-for="(item2,index2) in item1.foods" class="goodsConten">
 
-                            <div class="iconImg"><img :src="item2.icon"></div>
-                            <div class="goodsDesc">
-                                <h3 v-on:click="move($event)">{{item2.name}}</h3>
+                            <div class="iconImg"><img :src="item2.icon" @click="detail(item2)"></div>
+                            <div class="goodsDesc" @click="detail(item2)">
+                                <h3>{{item2.name}}</h3>
                                 <div class="des">{{item2.description}}</div>
                                 <div class="sellInfo"><span>月售{{item2.sellCount}}份</span> <span>好评率{{item2.rating}}%</span></div>
                                 <div class="buyInfo">

@@ -77,6 +77,9 @@ export default {
     move(index1,index2,event){
       this.data[index1].foods[index2].buyNumber +=-1
       this.$emit('remove',this.data[index1].foods[index2]);
+    },
+    detail(data){
+      this.$router.push({name:'foodDetail',params:{data:data}})
     }
   },
   mounted(){

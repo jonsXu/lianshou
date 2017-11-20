@@ -1,12 +1,21 @@
 <template>
     <div class="main">
         <div class="scrollWap" ref="scrollWap">
-            <ul>
-                <li class="" @click="menuClick(ide)" v-for="(item,ide) in datas" :class="{'active': index==ide}">
-                    <span class="name"> {{item.name}}</span>
-                    <div class="line"></div>
-                </li>
-            </ul>
+            <div class="foodImg">
+                <img :src="datas.image">
+            </div>
+            <div class="info">
+                <div class="name">{{datas.name}}</div>
+                <div class="sellInfo">
+                    <span>月售{{datas.sellCount}}</span>
+                    <span>好评率{{datas.rating}}%</span>
+                </div>
+                <div class="priceInfo">
+                    <span class="price">￥{{datas.price}}</span>
+                    <router-link to='/game'>加入购物车</router-link>
+                    <div class="clear"></div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -26,5 +35,49 @@ import index from './index'
     position: relative;
     width: 100%;
     height: 100%;
+    .foodImg{
+        width: 100%;
+        img{
+            width: 100%;
+        }
+    }
+    .info{
+        padding: .7rem;
+        background: white;
+        text-align: left;
+        .name{
+            font-size: .7rem;
+            font-weight:bold;
+        }
+        .sellInfo{
+            color:#93999f;
+            font-size: .5rem;
+            margin: .5rem 0 1.2rem 0;
+            span{
+                margin-right:.5rem;
+            }
+        }
+        .priceInfo{
+            line-height: 1rem;
+            .price{
+                font-size: .7rem;
+                color:red;
+                float:left;
+                display:inline-block;
+                height: 1rem;
+            }
+            a{
+                background: #00a0dc;
+                font-size: .5rem;
+                float: right;
+                display: inline-block;
+                width: 3rem;
+                height: 1rem;
+                border-radius: .5rem;
+                text-align: center;
+                color:white;
+            }
+        }
+    }
   }  
 </style>
