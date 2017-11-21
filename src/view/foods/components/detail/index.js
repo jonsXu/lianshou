@@ -23,8 +23,7 @@ export default {
     initScroll(){
       if(!this.menuScroll){ 
         this.$nextTick(() => { 
-          this.menuScroll = new Bscroll(this.$refs.scrollWap, {
-            click:true
+          this.menuScroll = new Bscroll(this.$refs.scrollDetail, {
           }) 
         })
       } else {
@@ -39,7 +38,7 @@ export default {
   watch:{
     menuList(datas){
       this.datas = datas
-      if(datas!=[]&&datas.length>0){
+      if(datas!={}){
         this.initScroll()
       }
     },

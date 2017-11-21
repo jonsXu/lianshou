@@ -16,7 +16,7 @@
         <menu-list class="menu" :menuList="data.goods" :listType="listType" @type-check="typeChange"></menu-list>
         <goods-list class="goodslist" :list="data.goods" :typeIndex="typeIndex" @change-index="listTypeChange" @add="add" @remove="remove"></goods-list>
       </div>
-      <pg-buy-car :order="order"></pg-buy-car>
+      <pg-buy-car ></pg-buy-car>
       <pg-confirm v-if="showBox" class="confirmBox">
         <div class="headBox">
           <h4>{{data.seller.name}}</h4>

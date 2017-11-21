@@ -1,9 +1,9 @@
 <template>
   <div class="main">
       <div class="content">
-        <div class="car" :class="{'carActive': order.length>0}" ref="car">
-            <div class="tab" v-if="order.length>0">{{order.length}}</div>
-            <pg-icon  name="cart_fill_light" class="icon-font2" isNormal="1" :class="{'iconActive': order.length>0}"></pg-icon>
+        <div class="car" :class="{'carActive': orders.length>0}" ref="car">
+            <div class="tab" v-if="orders.length>0">{{orders.length}}</div>
+            <pg-icon  name="cart_fill_light" class="icon-font2" isNormal="1" :class="{'iconActive': orders.length>0}"></pg-icon>
         </div>
         <ul class="carInfo">
             <li class="money">￥{{payMoney}}<span class="line"></span></lic>
@@ -20,10 +20,6 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'PgBuyCar',
   props:{
-    order: {
-        type: Array,
-        default: []
-      },
   },
   data () {
     return {
@@ -34,11 +30,12 @@ export default {
   computed:{
     ...mapGetters([
       'roominfo',
+      'orders',
     ]),
     payMoney(){
       let number = 0
-      for(let i=0;i<this.order.length;i++){
-        let price = this.order[i].price
+      for(let i=0;i<this.orders.length;i++){
+        let price = this.orders[i].price
         number += price 
       }
       this.number = number
@@ -55,6 +52,12 @@ export default {
     },
   },
   methods:{
+    ...mapActions([
+        'setName',
+        'setCtx',
+        'setRoomInfo',
+        'setOrders',
+    ]),
     tap() {
       this.$emit('click')
     },
@@ -98,9 +101,8 @@ export default {
   .main{
     width: 100%;
     position: absolute;
-    bottom: 0%;
+    bottom: 0;
     height: 2rem;
-    z-index: 999;
     background: #141d27;
 
     .content{

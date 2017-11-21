@@ -5,7 +5,11 @@ import * as types from '../mutations/index'
 //     commit(types.GAME_CTX, name)
 //   }
 
-export default{  setRoomInfo : ({ commit }, roomInfo) => {
+export default{  
+  setRoomInfo : ({ commit }, roomInfo) => {
     commit(types.FOOD_INFO, roomInfo)
-  }
+  },
+  setOrders:({ commit }, orders) => {
+    commit(types.ORDERS, orders)
+  },
 }

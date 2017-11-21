@@ -11,14 +11,14 @@ export default {
       data:{},
       typeIndex:0,
       listType:0,
-      order:[],//下单的食物的数组,
       showBox:false,//显示遮罩
     }
   },
   computed: {
       ...mapGetters([
         'nameGetter',
-        'ctxGetter'
+        'ctxGetter',
+        'orders',
       ])
   },
   methods:{
@@ -26,6 +26,7 @@ export default {
         'setName',
         'setCtx',
         'setRoomInfo',//
+        'setOrders',
     ]),
     getData(){
       this.$axios({
@@ -52,16 +53,20 @@ export default {
     },
     //添加物品到购物车
     add(item){
-      this.order.push(item)
+      let orders = this.orders
+      orders.push(item)
+      this.setOrders(orders)
     },
     //移除购物车物品
     remove(item){
-      for(let i=0 ;i<this.order.length;i++){
-        if(item.name = this.order[i].name){
-          this.order.splice(i,1);
+      let orders = this.orders
+      for(let i=0 ;i<orders.length;i++){
+        if(item.name = ordersr[i].name){
+          orders.splice(i,1);
           break;
         }
       }
+      this.setOrders(orders)
     },
     show(item){
       this.showBox = item

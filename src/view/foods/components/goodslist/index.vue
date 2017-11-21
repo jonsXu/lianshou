@@ -53,7 +53,7 @@ import index from './index'
     height: 100%;
     .goodsL{
         position: relative;
-        height: 100%;
+        height: 91%;
         overflow: hidden;
         .types{
             font-size: .5rem;
