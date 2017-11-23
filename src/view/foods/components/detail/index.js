@@ -11,6 +11,7 @@ export default {
       allNum:0,
       goodNum:0,
       badNum:0,
+      detailScroll:null,
     }
   },
   computed: {
@@ -25,20 +26,27 @@ export default {
         'setCtx' //
     ]),
     initScroll(){
-      if(!this.menuScroll){ 
-        this.$nextTick(() => { 
-          this.menuScroll = new Bscroll(this.$refs.scrollDetail, {
-          }) 
-        })
+      var self = this
+      if(this.detailScroll ==null){ 
+        setTimeout(function(){
+          self.detailScroll = new Bscroll(self.$refs.scrollDetail, {
+            
+          })
+         }, 100)
+        // this.$nextTick(() => { 
+        //   self.detailScroll = new Bscroll(self.$refs.scrollDetail, {
+            
+        //   })
+        // })
       } else {
-        this.menuScroll.refresh()
+        this.detailScroll.refresh()
       }
     },
     showAssess(index){
       this.showIndex = index
     }
   },
-  mounted(){
+  created(){
     this.datas = this.$route.params.data
     this.allNum = this.datas.ratings.length
     let self = this
@@ -51,17 +59,14 @@ export default {
         }
         
     })
-    this.initScroll();
+    this.initScroll()
   },
   watch:{
-    menuList(datas){
-      this.datas = datas
-      if(datas!={}){
-        this.initScroll()
-      }
-    },
-    listType(index){
-      this.index = index
-    }
+    // datas(datas){
+    //   this.datas = datas
+    //   if(datas!={}){
+    //     this.initScroll()
+    //   }
+    // },
   },
 }

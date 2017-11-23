@@ -36,14 +36,21 @@
                         <li  v-for="item in datas.ratings">
                             <div class="rateTime">
                                 <div class="time">2017-05-09 19:27:33</div>
-                                <div class="user">{{item.username}}</div>
+                                <div class="user">
+                                    <span>{{item.username}}</span>  
+                                    <img src="~static/default_header.png" class="defautHeader">
+                                </div>
                                 <div class="clear"></div>
                             </div>
                             <div class="assessMsg">
                                 <div class="msgIcon">
-                                    <pg-icon name="appreciate_fill_light" class="defaultFont"></pg-icon>
+                                    <pg-icon name="appreciate_fill_light" class="defaultFont" v-if="item.rateType==0"></pg-icon>
+                                    <pg-icon name="appreciate_fill_light" class="defaultFont badFont" v-else></pg-icon>
                                 </div>
-                                <div class="msg">{{item.text}}</div>
+                                 
+                                <div class="msg">{{item.text}}
+                                </div>
+                                <div class="clear"></div>
                             </div>
                         </li>
                     </ul>
@@ -72,7 +79,7 @@ import index from './index'
     height: 100%;
     .scrollDetail{
         width: 100%;
-        height: 93%;
+        height: 91%;
         position:absolute;
         top:0;
         left:0;
@@ -80,8 +87,10 @@ import index from './index'
     }
     .foodImg{
         width: 100%;
+        /*//height: 320px;*/
         img{
             width: 100%;
+            /*height: 320px;*/
         }
     }
     .info{
@@ -176,7 +185,7 @@ import index from './index'
             }
         }
         .onlyContent{
-            padding: .3rem 1rem;
+            padding: .5rem 1rem;
             color:#93999f;
             position: relative;
             border-bottom: 1px solid #ccc;
@@ -194,7 +203,9 @@ import index from './index'
             }
         }
         .assessList{
+            padding-bottom:1rem; 
             li{
+                margin:.8rem;
                 .rateTime{
                     color:#93999f;
                     font-size:.5rem;
@@ -203,7 +214,33 @@ import index from './index'
                     }
                     .user{
                         float: right;
+                        .defautHeader{
+                            height: .6rem;
+                            width:.6rem;
+                            border-radius:50%;
+                            padding-left:.2rem;
+                        }
                     }
+                }
+                .assessMsg{
+                    margin-top:.6rem;
+                    .msg{
+                        font-size:.5rem;
+                        margin-left:1rem;
+                    }
+                    .msgIcon{
+                        
+                        .defaultFont{
+                            font-size:.5rem;
+                            float:left;
+                            color:#00a9dc;
+                        }
+                        .badFont{
+                            transform:rotate(180deg);
+                            color:#93999f;
+                        }
+                    }
+                    
                 }
                 
             }
