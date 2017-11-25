@@ -3,7 +3,7 @@
       <div class="title">
         <span class="t1 animated wobble">欢迎登乘</span> —— 
         <span class="t2 animated fadeInLeft">
-          旅途小bus
+          欢乐小bus
           <pg-icon name="luntai" class="lunzi l1" isNormal="0" ></pg-icon>
           <pg-icon name="luntai" class="lunzi l2" isNormal="0" ></pg-icon>
         </span>

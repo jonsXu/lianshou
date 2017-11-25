@@ -1,18 +1,42 @@
 <template>
-  <div class="main">
-      <div class="content">
-        <div class="car" :class="{'carActive': orders.length>0}" ref="car">
-            <div class="tab" v-if="orders.length>0">{{orders.length}}</div>
-            <pg-icon  name="cart_fill_light" class="icon-font2" isNormal="1" :class="{'iconActive': orders.length>0}"></pg-icon>
+  <div class='main'>
+    <transition name="orderList">
+        <div class="lists" v-show="showOrder&&orders.length>0">
+            <div class="line"></div>
+            <div class="listsName">
+              <pg-icon  name="guanbi2" class="closeFont" isNormal="1" ></pg-icon>
+              <div class="clear"></div>
+            </div>
+            <div class="line"></div>
+            <ul class="orders">
+              <li v-for="item in ordersList"> 
+                <div class="name">{{item.name}}</div>
+                <div class="orderInfo">
+                  <span class="price">{{item.price}}</span>
+                  <span><pg-icon  name="jianhao1"  class="icon-font1"  isNormal="1"></pg-icon></span>
+                  <span class="buynumber">{{item.buyNumber}}</span>
+                  <span><pg-icon name="roundaddfill" class="icon-font1 " isNormal="1"  ></pg-icon></span>
+                </div>
+                <div class="clear"></div>
+              </li>
+            </ul>
         </div>
-        <ul class="carInfo">
-            <li class="money">￥{{payMoney}}<span class="line"></span></lic>
-            <li class="des" >另需配送费￥4元</li>
-            <li class="btn" :class="{'active': roominfo.minPrice-number<=0}" @click="test()">{{showBtnTxt}}</li>
-        </ul>
-        <div class="clear"></div>
+    </transition>
+      <div class="mainContent">
+          <div class="content">
+            <div class="car" :class="{'carActive': orders.length>0}" ref="car" @click="showOrderList">
+                <div class="tab" v-if="orders.length>0">{{orders.length}}</div>
+                <pg-icon  name="cart_fill_light" class="icon-font2" isNormal="1" :class="{'iconActive': orders.length>0}"></pg-icon>
+            </div>
+            <ul class="carInfo">
+                <li class="money">￥{{payMoney}}<span class="line"></span></lic>
+                <li class="des" >另需配送费￥4元</li>
+                <li class="btn" :class="{'active': roominfo.minPrice-number<=0}" @click="test()">{{showBtnTxt}}</li>
+            </ul>
+            <div class="clear"></div>
+          </div>
       </div>
-  </div>
+    </div>
 </template>
 
 <script>
@@ -25,6 +49,7 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       number:0,
+      showOrder:false,
     }
   },
   computed:{
@@ -50,6 +75,20 @@ export default {
       }
       return text
     },
+    ordersList(){
+      let list = [];
+      let obj ={}
+      for(let i = 0 ; i<this.orders.length;i++) {
+        let item = this.orders[i]
+        if(item.buyNumber>0) {
+          if(!obj[item.name]) {
+            list.push(item)
+            obj[item.name] =1
+          }
+        }
+      }
+      return list
+    }
   },
   methods:{
     ...mapActions([
@@ -61,8 +100,14 @@ export default {
     tap() {
       this.$emit('click')
     },
-    test(){
-      console.info(111)
+    showOrderList(){
+      if(!this.showOrder) {
+        if(this.orders.length>0) {
+          this.showOrder = !this.showOrder
+        }
+      }else {
+        this.showOrder = !this.showOrder
+      }
     }
   },
   watch:{
@@ -102,66 +147,131 @@ export default {
     width: 100%;
     position: absolute;
     bottom: 0;
-    height: 2rem;
-    background: #141d27;
+    z-index: 10;
+    .lists{
+      background: white;
+      z-index:-9999;
+      .closeFont{
+        font-size: 1rem;
+        color: #00a0dc;
+        float: right;
+      }
+      .listsName{
+        margin:0 1rem;
+      }
+      .line{
+        border-top: 1px solid #ccc;
+      }
+      .orders{
+        margin:0 1rem;
+        li{
+          border-bottom:1px solid #ccc;
+          padding:.3rem 0;
+          .name{
+            height:1.2rem;
+            float:left;
+            font-size:.6rem;
+            font-weight:bold;
+            height: 100%;
+            line-height: 1.2rem;
+          }
+          .orderInfo{
+            float: right;
+            font-size: 1rem;
+            position:relative;
+            height:1.2rem;
+            span{
+              display:inline-block;
+            }
+            .price{
+              color:red;
+              margin-right:.8rem;
+            }
+            .icon-font1{
+              font-size: 1rem;
+              color:#00a0dc;
+            }
+            .buynumber{
+              font-size: .4rem;
+              color: #999;
+              margin: 0 .8rem;
+              position: relative;
+              bottom:.2rem;
+            }
+          }
+        }
 
-    .content{
-      margin: 0 1rem;
-      .flybox{
-            animation: bounce-in .1s;
-            animation-timing-function:ease-in;
-        }
-      .car{
-        height: 1.7rem;
-        width: 1.7rem;
-        position: absolute;
-        bottom: .4rem;
-        left:1rem;
-        border-radius: 50%;
-        line-height: 1.7rem;
-        border: .3rem solid #141d27;
-        background: #2b343c;
-        
-        .icon-font2{
-          font-size: 1.2rem;
-          color:#80858a;
-        }
-        .iconActive{
-          color: white;
-        }
       }
-      .carActive{
-        background: #00a0dc;
-      }
-      .carInfo{
-        position:absolute;
-        right:0;
-        height: 100%;
-        font-size: .6rem;
-        display: flex;
-        line-height: 2rem;
-        color: rgba(255,255,255,0.4);
-        
-        .btn{
-          width: 4rem;
+    }
+    .orderList-enter, .orderList-leave-to{
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    .orderList-enter-active, .orderList-leave-active{
+        transition: all .3s linear;
+    }
+    .mainContent{
+      z-index: 5999;
+      height: 2rem;
+      background: #141d27;
+      position: relative;
+      .content{
+        margin: 0 1rem;
+        .flybox{
+              animation: bounce-in .1s;
+              animation-timing-function:ease-in;
+          }
+        .car{
+          height: 1.7rem;
+          width: 1.7rem;
+          position: absolute;
+          bottom: .4rem;
+          left:1rem;
+          border-radius: 50%;
+          line-height: 1.7rem;
+          border: .3rem solid #141d27;
           background: #2b343c;
+          
+          .icon-font2{
+            font-size: 1.2rem;
+            color:#80858a;
+          }
+          .iconActive{
+            color: white;
+          }
         }
-        .active{
-          color: white;
-          background: green;
+        .carActive{
+          background: #00a0dc;
         }
-        .des{
-          width: 5rem;
-        }
-        .money{
-          width:3.5rem;
-          font-size: .8rem;
-          .line{
-            border-left: 1px solid rgba(255,255,255,0.4);
-            float:right;
-            height:1rem;
-            margin-top:.5rem;
-            display:line-block;
+        .carInfo{
+          position:absolute;
+          right:0;
+          font-size: .6rem;
+          display: flex;
+          line-height: 2rem;
+          color: rgba(255,255,255,0.4);
+          
+          .btn{
+            width: 4rem;
+            background: #2b343c;
+          }
+          .active{
+            color: white;
+            background: green;
+          }
+          .des{
+            width: 5rem;
+          }
+          .money{
+            width:3.5rem;
+            font-size: .8rem;
+            .line{
+              border-left: 1px solid rgba(255,255,255,0.4);
+              float:right;
+              height:1rem;
+              margin-top:.5rem;
+              display:line-block;
+            }
           }
         }
       }

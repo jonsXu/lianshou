@@ -61,7 +61,7 @@ export default {
     remove(item){
       let orders = this.orders
       for(let i=0 ;i<orders.length;i++){
-        if(item.name = ordersr[i].name){
+        if(item.name == orders[i].name){
           orders.splice(i,1);
           break;
         }
