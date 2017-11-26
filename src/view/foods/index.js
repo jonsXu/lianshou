@@ -51,11 +51,26 @@ export default {
     listTypeChange(index){
       this.listType=index
     },
+    //深度拷贝
+    deepCopy(p, c) {
+　　　　var c = c || {};
+　　　　for (var i in p) {
+　　　　　　if (typeof p[i] === 'object') {
+　　　　　　　　c[i] = (p[i].constructor === Array) ? [] : {};
+　　　　　　　　this.deepCopy(p[i], c[i]);
+　　　　　　} else {
+　　　　　　　　　c[i] = p[i];
+　　　　　　}
+　　　　}
+　　　　return c;
+　　},
     //添加物品到购物车
     add(item){
+      let newOne = this.util.deepCopy(item,new Object())
+      console.info(newOne)
       let orders = this.orders
       orders.push(item)
-      this.setOrders(orders)
+      //this.setOrders(orders)
     },
     //移除购物车物品
     remove(item){
@@ -66,7 +81,7 @@ export default {
           break;
         }
       }
-      this.setOrders(orders)
+      //this.setOrders(orders)
     },
     show(item){
       this.showBox = item

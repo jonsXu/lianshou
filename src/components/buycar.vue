@@ -4,7 +4,8 @@
         <div class="lists" v-show="showOrder&&orders.length>0">
             <div class="line"></div>
             <div class="listsName">
-              <pg-icon  name="guanbi2" class="closeFont" isNormal="1" ></pg-icon>
+              <a  @click="clearCar"><pg-icon  name="shanchu" class="closeFont" style="float:left" isNormal="1"></pg-icon></a>
+              <pg-icon  name="guanbi2" class="closeFont" isNormal="1" @click="showOrderList"></pg-icon>
               <div class="clear"></div>
             </div>
             <div class="line"></div>
@@ -13,9 +14,9 @@
                 <div class="name">{{item.name}}</div>
                 <div class="orderInfo">
                   <span class="price">{{item.price}}</span>
-                  <span><pg-icon  name="jianhao1"  class="icon-font1"  isNormal="1"></pg-icon></span>
+                  <a @click="remove(item)"><pg-icon  name="jianhao1"  class="icon-font1"  isNormal="1"></pg-icon></a>
                   <span class="buynumber">{{item.buyNumber}}</span>
-                  <span><pg-icon name="roundaddfill" class="icon-font1 " isNormal="1"  ></pg-icon></span>
+                  <a @click="addCar(item)"><pg-icon name="roundaddfill" class="icon-font1" isNormal="1" ></pg-icon></a>
                 </div>
                 <div class="clear"></div>
               </li>
@@ -79,7 +80,7 @@ export default {
       let list = [];
       let obj ={}
       for(let i = 0 ; i<this.orders.length;i++) {
-        let item = this.orders[i]
+         var item = this.orders[i]
         if(item.buyNumber>0) {
           if(!obj[item.name]) {
             list.push(item)
@@ -88,7 +89,7 @@ export default {
         }
       }
       return list
-    }
+    },
   },
   methods:{
     ...mapActions([
@@ -108,6 +109,43 @@ export default {
       }else {
         this.showOrder = !this.showOrder
       }
+    },
+    addCar(obj){
+      console.info(obj)
+      
+      // this.orders.forEach(function(item){
+      //   if(item.name==obj.name) {
+      //     item.buyNumber+=1
+      //   }
+      // })
+      for(let i = 0 ; i<this.orders.length;i++){
+        var hh = this.orders[i]
+        if(hh.name==obj.name) {
+          this.orders[i].buyNumber= this.orders[i].buyNumber + 1
+          obj.description ='1111'
+          console.info(this.orders[i].buyNumber)
+        }
+      }
+      this.orders.push(obj)     
+    },
+    remove(obj){
+      for(let i = 0 ; i<this.orders.length;i++){
+        let item = this.orders[i]
+        if(item.name==obj.name) {
+          this.orders.splice(i,1)
+          break
+        }
+      }
+      for(let i = 0 ; i<this.orders.length;i++){
+        let item = this.orders[i]
+        if(item.name==obj.name) {
+          item.buyNumber +=-1 
+        }
+      }
+    },
+    //清空购物车
+    clearCar(){
+
     }
   },
   watch:{

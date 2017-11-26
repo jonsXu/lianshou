@@ -16,7 +16,7 @@ import 'src/assets/css/animate/animate.css'
 import 'src/assets/css/iconfont.js' 
    // 引入字体样式 jquery.jqprint-0.3
 // import 'src/common/jquery-3.2.1.min' 
-// import 'src/common/jquery.jqprint-0.3' 
+import 'src/common/util' 
 
 
 Vue.use(Router)
