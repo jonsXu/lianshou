@@ -66,21 +66,40 @@ export default {
 　　},
     //添加物品到购物车
     add(item){
-      let newOne = this.util.deepCopy(item,new Object())
+      let newOne = this.util.deepCopy(item.data,new Object())
+      newOne['index1'] = item.index1
+      newOne['index2'] = item.index2
       console.info(newOne)
-      let orders = this.orders
-      orders.push(item)
+      //let orders = this.orders
+      if(newOne.buyNumber==1) {
+        this.orders.list.push(newOne)
+      } else {
+        for( let i in this.orders.list) {
+          if(this.orders.list[i].name == newOne.name) {
+            this.orders.list[i].buyNumber += 1;
+          }
+        }
+      }
+      this.orders.number +=1 
       //this.setOrders(orders)
     },
     //移除购物车物品
     remove(item){
-      let orders = this.orders
-      for(let i=0 ;i<orders.length;i++){
-        if(item.name == orders[i].name){
-          orders.splice(i,1);
-          break;
+      let newOne = this.util.deepCopy(item.data,new Object())
+      newOne['index1'] = item.index1
+      newOne['index2'] = item.index2
+        for(let i=0 ;i<this.orders.list.length;i++){
+          if(newOne.name == this.orders.list[i].name){
+            if(this.orders.list[i].buyNumber==1) {
+              this.orders.list.splice(i,1);
+                
+            } else {
+              this.orders.list[i].buyNumber +=-1
+            }
+            break;
+          }
         }
-      }
+        this.orders.number +=-1;
       //this.setOrders(orders)
     },
     show(item){
