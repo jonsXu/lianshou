@@ -4,7 +4,10 @@ import * as types from '../mutations/index'
 // shape: [{ id, quantity }]
 const state = {
   roominfo:{},
-  orders:[],//购物车列表
+  orders:{
+    number:0,
+    list:[],
+  },//购物车列表
 }
 
 

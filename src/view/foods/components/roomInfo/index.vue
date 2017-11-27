@@ -1,29 +1,29 @@
 <template>
     <div class="box">
-        <div class="info">
-            <img :src="form.avatar"  class="roomImg">
+        <div class="info" v-if="data !={}">
+            <img :src="data.avatar"  class="roomImg">
             <div class="text">
                 <div class="title">
-                    <span class="img"></span><span>{{form.name}}</span>
+                    <span class="img"></span><span>{{data.name}}</span>
                     <!-- <img src="static/brand@2x.png" srcset="static/brand@3x.png 2x"> -->
                     
                 </div>
-                <div class="timeDes">{{form.description}}/{{form.deliveryTime}}分钟内送达</div>
+                <div class="timeDes">{{data.description}}/{{data.deliveryTime}}分钟内送达</div>
                 <div class="descri">
                     <div class="benefit">
-                        <img src="static/decrease_1@2x.png" srcset="static/decrease_1@3x.png 2x"><span>{{form.supports[0].description}}</span>
+                        <img src="static/decrease_1@2x.png" srcset="static/decrease_1@3x.png 2x"><span>{{data.supports?data.supports[0].description:''}}</span>
                     </div>
-                    <a class="benefitNum" @click="show">{{form.supports.length}}个 ></a>
+                    <a class="benefitNum" @click="show">{{data.supports?data.supports.length:0}}个 ></a>
                     <div class="clear"></div>
                 </div>
             </div>
             
         </div>
         <div class="message">
-            <img src="static/bulletin@2x.png" srcset="static/bulletin@3x.png 2x"><span class="noticeContent">{{form.bulletin}}</span><span class="jian">></span>
+            <img src="static/bulletin@2x.png" srcset="static/bulletin@3x.png 2x"><span class="noticeContent">{{data.bulletin}}</span><span class="jian">></span>
         </div>
         <div class="headBg">
-            <img :src="form.avatar" width="100%" height="100%" >
+            <img :src="data.avatar" width="100%" height="100%" >
         </div>
     </div>
 </template>

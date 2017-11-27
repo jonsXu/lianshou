@@ -16,7 +16,7 @@
         <menu-list class="menu" :menuList="data.goods" :listType="listType" @type-check="typeChange"></menu-list>
         <goods-list class="goodslist" :list="data.goods" :typeIndex="typeIndex" @change-index="listTypeChange" @add="add" @remove="remove"></goods-list>
       </div>
-      <pg-buy-car ></pg-buy-car>
+      <pg-buy-car :list="data.goods"></pg-buy-car>
       <pg-confirm v-if="showBox" class="confirmBox">
         <div class="headBox">
           <h4>{{data.seller.name}}</h4>
@@ -34,7 +34,7 @@
         <div class='message'><span class="line"></span><span class="name">商家公告</span><span class="line"></span></div>
         <div class="desContent">{{data.seller.bulletin}}</div>
         <div class="close">
-          <pg-icon name="guanbi2" class="guanFont" isNormal="1" @click="showBox=!showBox"></pg-icon>
+          <a @click="showBox=!showBox"><pg-icon name="guanbi2" class="guanFont" isNormal="1" ></pg-icon></a>
           
         </div>
       </pg-confirm>

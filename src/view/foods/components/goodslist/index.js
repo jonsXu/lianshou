@@ -72,11 +72,11 @@ export default {
       } else {
         this.$set(this.data[index1].foods[index2],'buyNumber',1)
       }
-      this.$emit('add',this.data[index1].foods[index2]);
+      this.$emit('add',{data:this.data[index1].foods[index2],index1:index1,index2:index2});
     },
     move(index1,index2,event){
       this.data[index1].foods[index2].buyNumber +=-1
-      this.$emit('remove',this.data[index1].foods[index2]);
+      this.$emit('remove',{data:this.data[index1].foods[index2],index1:index1,index2:index2});
     },
     detail(data){
       this.$router.push({name:'foodDetail',params:{data:data}})

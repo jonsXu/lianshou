@@ -25,4 +25,9 @@ export default {
   },
   mounted(){
   },
+  watch:{
+    form(data){
+      this.data = data
+    }
+  }
 }

@@ -38,7 +38,8 @@ export default {
   },
   mounted(){
     //this.sets("wangwang")
-    
+    const str =123
+    console.info(123)
   },
   watch:{
     test:{

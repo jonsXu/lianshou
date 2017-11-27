@@ -48,6 +48,23 @@ import index from './index'
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
   @import '~assets/css/vali';
+  @keyframes snow2 {
+    0% { opacity: 1;  transform: translateX(100%); }
+    100% { opacity: 1;  transform: translateX(0); }
+  }
+  @keyframes snow {
+    0% { opacity: 1; transform: translateX(0); }
+    100% { opacity: 1;  transform: translateX(-100%); }
+  }
+   @keyframes roate {
+    0%{transform:rotate(0deg);}
+    50%{
+      transform:rotate(180deg);
+    }
+    100%{
+      transform:rotate(360deg);
+    }
+  }    
   .home{
     width: 100%;
     height: 100%;
@@ -164,21 +181,5 @@ import index from './index'
     -webkit-transform: translateX(0rem);
     -webkit-transform: translateX(100%);
   */
-  @keyframes snow2 {
-    0% { opacity: 1;  transform: translateX(100%); }
-    100% { opacity: 1;  transform: translateX(0); }
-  }
-  @keyframes snow {
-    0% { opacity: 1; transform: translateX(0); }
-    100% { opacity: 1;  transform: translateX(-100%); }
-  }
-   @keyframes roate {
-    0%{transform:rotate(0deg);}
-    50%{
-      transform:rotate(180deg);
-    }
-    100%{
-      transform:rotate(360deg);
-    }
-  }    
+  
 </style>

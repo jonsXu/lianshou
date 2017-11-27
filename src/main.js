@@ -18,6 +18,7 @@ import 'src/assets/css/iconfont.js'
 // import 'src/common/jquery-3.2.1.min' 
 import 'src/common/util' 
 
+require("babel-register");
 
 Vue.use(Router)
 Vue.use(VueAwesomeSwiper)

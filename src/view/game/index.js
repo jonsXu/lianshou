@@ -10,7 +10,7 @@ export default {
       matrix: [new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),new Array(12),],
       ctx:null,//画布对象
       nowBlock:null,//当前正在下落的方块
-      newFlag:true,//是否新生成一个方块
+      newFlag:true,//是否新生成一个方块，ps：好像没怎么用到，感觉没什么作用
       
       defr:0,//下落延迟  ,
       allWindow:{
@@ -35,10 +35,10 @@ export default {
     ]),
     //创建一个block对象
     createBlock(){
-      let str = parseInt(Math.random()*5)+1
+      let str = parseInt(Math.random()*5)+1//生成随机的方块模型
       let self = this 
       var block = new Object()
-      //默认第一个按钮的坐标就是x=0 y=6
+      //默认第一个方块的坐标就是x=0 y=6
       block.type = str
       let XandY = null
       switch(str){
