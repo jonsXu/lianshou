@@ -1,16 +1,16 @@
 <template>
   <div class='main'>
     <transition name="orderList">
-        <div class="lists" v-show="showOrder&&orders.length>0">
+        <div class="lists" v-show="showOrder&&orders.number>0">
             <div class="line"></div>
             <div class="listsName">
               <a  @click="clearCar"><pg-icon  name="shanchu" class="closeFont" style="float:left" isNormal="1"></pg-icon></a>
-              <pg-icon  name="guanbi2" class="closeFont" isNormal="1" @click="showOrderList"></pg-icon>
+              <a   @click="showOrderList"><pg-icon  name="guanbi2" class="closeFont" isNormal="1"></pg-icon></a>
               <div class="clear"></div>
             </div>
             <div class="line"></div>
             <ul class="orders">
-              <li v-for="item in ordersList"> 
+              <li v-for="item in orders.list"> 
                 <div class="name">{{item.name}}</div>
                 <div class="orderInfo">
                   <span class="price">{{item.price}}</span>
@@ -25,9 +25,9 @@
     </transition>
       <div class="mainContent">
           <div class="content">
-            <div class="car" :class="{'carActive': orders.length>0}" ref="car" @click="showOrderList">
-                <div class="tab" v-if="orders.length>0">{{orders.length}}</div>
-                <pg-icon  name="cart_fill_light" class="icon-font2" isNormal="1" :class="{'iconActive': orders.length>0}"></pg-icon>
+            <div class="car" :class="{'carActive': orders.number>0}" ref="car" @click="showOrderList">
+                <div class="tab" v-if="orders.number>0">{{orders.number}}</div>
+                <pg-icon  name="cart_fill_light" class="icon-font2" isNormal="1" :class="{'iconActive': orders.number>0}"></pg-icon>
             </div>
             <ul class="carInfo">
                 <li class="money">￥{{payMoney}}<span class="line"></span></lic>
@@ -44,8 +44,9 @@
 import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'PgBuyCar',
-  props:{
-  },
+  props:[
+    'list',
+  ],
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
@@ -60,9 +61,10 @@ export default {
     ]),
     payMoney(){
       let number = 0
-      for(let i=0;i<this.orders.length;i++){
-        let price = this.orders[i].price
-        number += price 
+      for(let i=0;i<this.orders.list.length;i++){
+        let price = this.orders.list[i].price
+        let num = this.orders.list[i].buyNumber
+        number += price*num 
       }
       this.number = number
       return number
@@ -76,20 +78,20 @@ export default {
       }
       return text
     },
-    ordersList(){
-      let list = [];
-      let obj ={}
-      for(let i = 0 ; i<this.orders.length;i++) {
-         var item = this.orders[i]
-        if(item.buyNumber>0) {
-          if(!obj[item.name]) {
-            list.push(item)
-            obj[item.name] =1
-          }
-        }
-      }
-      return list
-    },
+    // ordersList(){
+    //   let list = [];
+    //   let obj ={}
+    //   for(let i = this.orders.number-1 ; i>=0;i--) {
+    //      var item = this.orders[i]
+    //     if(item.buyNumber>0) {
+    //       if(!obj[item.name]) {
+    //         list.push(item)
+    //         obj[item.name] =1
+    //       }
+    //     }
+    //   }
+    //   return list
+    // },
   },
   methods:{
     ...mapActions([
@@ -103,7 +105,7 @@ export default {
     },
     showOrderList(){
       if(!this.showOrder) {
-        if(this.orders.length>0) {
+        if(this.orders.number>0) {
           this.showOrder = !this.showOrder
         }
       }else {
@@ -111,41 +113,38 @@ export default {
       }
     },
     addCar(obj){
-      console.info(obj)
       
-      // this.orders.forEach(function(item){
-      //   if(item.name==obj.name) {
-      //     item.buyNumber+=1
-      //   }
-      // })
-      for(let i = 0 ; i<this.orders.length;i++){
-        var hh = this.orders[i]
-        if(hh.name==obj.name) {
-          this.orders[i].buyNumber= this.orders[i].buyNumber + 1
-          obj.description ='1111'
-          console.info(this.orders[i].buyNumber)
-        }
-      }
-      this.orders.push(obj)     
+       obj.buyNumber+=1
+       this.list[obj.index1]['foods'][obj.index2].buyNumber =  obj.buyNumber
+       this.orders.number +=1
     },
     remove(obj){
-      for(let i = 0 ; i<this.orders.length;i++){
-        let item = this.orders[i]
-        if(item.name==obj.name) {
-          this.orders.splice(i,1)
-          break
-        }
+      if(obj.buyNumber==1) {
+        this.list[obj.index1]['foods'][obj.index2].buyNumber = 0
+        delete this.list[obj.index1]['foods'][obj.index2].buyNumber.buyNumber
+        let i = this.orders.list.indexOf(obj)
+        
+        this.orders.list.splice(i,1);
+      } else {
+        obj.buyNumber+=-1
+        this.list[obj.index1]['foods'][obj.index2].buyNumber = obj.buyNumber
       }
-      for(let i = 0 ; i<this.orders.length;i++){
-        let item = this.orders[i]
-        if(item.name==obj.name) {
-          item.buyNumber +=-1 
-        }
-      }
+      this.orders.number +=-1
+      
     },
     //清空购物车
     clearCar(){
-
+      this.orders.number = 0;
+      this.orders.list = []
+      for(let i in this.list) {
+        let item = this.list[i].foods
+         for(let j in item){
+           if(item[j].buyNumber){
+             item[j].buyNumber = 0
+             delete item[j].buyNumber
+           }
+         }
+      }
     }
   },
   watch:{

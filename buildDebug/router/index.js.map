@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../src/router/index.js"],"names":[],"mappings":";AACA,8B;AACA,8B;AACA,8B","file":"index.js","sourcesContent":["\r\nimport demo from './demo'\r\nimport home from './home'\r\nimport food from './food'\r\n\r\nexport default [\r\n    ...demo,\r\n    ...home,\r\n    ...food,\r\n]\r\n"]}

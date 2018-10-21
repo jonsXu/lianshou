@@ -1,0 +1,20 @@
+'use strict';Object.defineProperty(exports, "__esModule", { value: true });
+var _index = require('src/view/home/index.vue');var _index2 = _interopRequireDefault(_index);
+var _index3 = require('src/view/game/index.vue');var _index4 = _interopRequireDefault(_index3);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}exports.default =
+
+[
+{
+  path: '/',
+  name: 'home',
+  component: _index2.default },
+
+{
+  path: '/home',
+  name: 'home',
+  component: _index2.default },
+
+{
+  path: '/game',
+  name: 'game',
+  component: _index4.default }];
+//# sourceMappingURL=index.js.map

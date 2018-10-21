@@ -1,0 +1,30 @@
+'use strict';Object.defineProperty(exports, "__esModule", { value: true });var _defineProperty2 = require('babel-runtime/helpers/defineProperty');var _defineProperty3 = _interopRequireDefault(_defineProperty2);var _mutations;var _index = require('../mutations/index');var types = _interopRequireWildcard(_index);function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;} else {var newObj = {};if (obj != null) {for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];}}newObj.default = obj;return newObj;}}function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+// initial state
+// shape: [{ id, quantity }]
+var state = {
+  roominfo: {},
+  orders: {
+    number: 0,
+    list: [] }
+  //购物车列表
+
+
+
+  // mutations
+};var mutations = (_mutations = {}, (0, _defineProperty3.default)(_mutations,
+
+types.FOOD_INFO, function (state, data) {
+  // rollback to the cart saved before sending the request
+  state.roominfo = data;
+}), (0, _defineProperty3.default)(_mutations,
+types.ORDERS, function (state, data) {
+  // rollback to the cart saved before sending the request
+  state.orders = data;
+}), _mutations);exports.default =
+
+
+{
+  state: state,
+  mutations: mutations };
+//# sourceMappingURL=food.js.map

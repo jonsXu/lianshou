@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../src/store/getters/game.js"],"names":["ctxGetter","state","game","ctx"],"mappings":";AACO,IAAMA,gCAAY,SAAZA,SAAY,gBAASC,MAAMC,IAAN,CAAWC,GAApB,EAAlB;AACP;AACA;AACA","file":"game.js","sourcesContent":["\r\nexport const ctxGetter = state => state.game.ctx\r\n// export default{\r\n//     nameGetter : state => state.demo.name,\r\n// }"]}
