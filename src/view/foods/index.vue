@@ -27,7 +27,7 @@
             <img v-else src="~static/star48_off@2x.png" srcset="static/star48_off@3x.png 2x">
           </li>
         </ul>
-        <div class='message'><span class="line"></span><span class="name">优惠信息</span><span class="line"></span></div>
+        <div class='message'><span class="line"></span><span class="name">优惠信息1</span><span class="line"></span></div>
         <ul class="msgContent">
           <li v-for="(item,n) in data.seller.supports">{{n+1}}、{{item.description}}</li>
         </ul>
